@@ -74,16 +74,23 @@ Formatting guidelines:
 Student message: "${message}"
 `;
 
-        const response = await ai.models.generateContent({
-          model: 'gemini-3.8-flash',
-          contents: promptText,
-          config: {
-            systemInstruction,
-            temperature: 0.7,
-          },
-        });
+        let responseText = '';
+        try {
+          const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: promptText,
+            config: {
+              systemInstruction,
+              temperature: 0.7,
+            },
+          });
+          responseText = response.text || '';
+        } catch (genErr: any) {
+          console.warn('Gemini generateContent encountered error or quota limit, using contextual fallback:', genErr?.message || genErr);
+          responseText = generateContextualFallbackReply(agentType, message, profileContext);
+        }
 
-        return res.json({ reply: response.text });
+        return res.json({ reply: responseText });
       }
 
       // High-quality contextual fallback if GEMINI_API_KEY is not configured
@@ -145,16 +152,21 @@ Return ONLY a valid JSON object matching this schema:
 }
 `;
 
-        const response = await ai.models.generateContent({
-          model: 'gemini-3.8-flash',
-          contents: prompt,
-          config: {
-            responseMimeType: 'application/json',
-            temperature: 0.3,
-          },
-        });
-
-        const parsed = JSON.parse(response.text || '{}');
+        let parsed: any = null;
+        try {
+          const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: prompt,
+            config: {
+              responseMimeType: 'application/json',
+              temperature: 0.3,
+            },
+          });
+          parsed = JSON.parse(response.text || '{}');
+        } catch (e: any) {
+          console.warn('Resume analysis API error or quota limit:', e?.message || e);
+          parsed = generateFallbackResumeAnalysis(resumeText, targetCareer, assessedSkills);
+        }
         return res.json(parsed);
       }
 
@@ -209,16 +221,21 @@ Return ONLY a valid JSON object:
 }
 `;
 
-        const response = await ai.models.generateContent({
-          model: 'gemini-3.8-flash',
-          contents: prompt,
-          config: {
-            responseMimeType: 'application/json',
-            temperature: 0.3,
-          },
-        });
-
-        const parsed = JSON.parse(response.text || '{}');
+        let parsed: any = null;
+        try {
+          const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: prompt,
+            config: {
+              responseMimeType: 'application/json',
+              temperature: 0.3,
+            },
+          });
+          parsed = JSON.parse(response.text || '{}');
+        } catch (e: any) {
+          console.warn('Interview evaluation API error or quota limit:', e?.message || e);
+          parsed = generateFallbackInterviewEvaluation(question, answer, mode);
+        }
         return res.json(parsed);
       }
 
@@ -270,16 +287,21 @@ Return ONLY a valid JSON object:
 }
 `;
 
-        const response = await ai.models.generateContent({
-          model: 'gemini-3.8-flash',
-          contents: prompt,
-          config: {
-            responseMimeType: 'application/json',
-            temperature: 0.4,
-          },
-        });
-
-        const parsed = JSON.parse(response.text || '{}');
+        let parsed: any = null;
+        try {
+          const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: prompt,
+            config: {
+              responseMimeType: 'application/json',
+              temperature: 0.4,
+            },
+          });
+          parsed = JSON.parse(response.text || '{}');
+        } catch (e: any) {
+          console.warn('Project generation API error or quota limit:', e?.message || e);
+          parsed = generateFallbackProject(careerGoal, skillGaps);
+        }
         return res.json(parsed);
       }
 
@@ -317,16 +339,21 @@ Return ONLY a valid JSON object:
 }
 `;
 
-        const response = await ai.models.generateContent({
-          model: 'gemini-3.8-flash',
-          contents: prompt,
-          config: {
-            responseMimeType: 'application/json',
-            temperature: 0.3,
-          },
-        });
-
-        const parsed = JSON.parse(response.text || '{}');
+        let parsed: any = null;
+        try {
+          const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: prompt,
+            config: {
+              responseMimeType: 'application/json',
+              temperature: 0.3,
+            },
+          });
+          parsed = JSON.parse(response.text || '{}');
+        } catch (e: any) {
+          console.warn('Quiz generation API error or quota limit:', e?.message || e);
+          parsed = generateFallbackQuiz(topic);
+        }
         return res.json(parsed);
       }
 

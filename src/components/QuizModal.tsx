@@ -145,22 +145,21 @@ export const QuizModal: React.FC<QuizModalProps> = ({
   const isPassing = scorePercentage >= 70;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm">
-      <div className="relative w-full max-w-2xl rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl dark:border-slate-800 dark:bg-slate-900 transition-colors">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/70 backdrop-blur-xs">
+      <div className="relative w-full max-w-2xl border border-stone-300 bg-[#FAF8F5] p-8 shadow-2xl dark:border-stone-800 dark:bg-stone-900 text-stone-900 dark:text-stone-100 transition-colors">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-100 pb-4 dark:border-slate-800">
+        <div className="flex items-baseline justify-between border-b border-stone-200 pb-4 dark:border-stone-800">
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-              <Sparkles className="h-3.5 w-3.5" />
-              <span>Adaptive Diagnostic Assessment</span>
+            <div className="font-mono text-[10px] uppercase tracking-widest text-amber-800 dark:text-amber-400">
+              Diagnostic Assessment
             </div>
-            <h2 className="mt-1 text-lg font-bold text-slate-900 dark:text-slate-100">
+            <h2 className="mt-1 font-serif text-2xl font-normal text-stone-900 dark:text-stone-100">
               {topic}
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+            className="p-1.5 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200"
           >
             <X className="h-5 w-5" />
           </button>
@@ -168,54 +167,52 @@ export const QuizModal: React.FC<QuizModalProps> = ({
 
         {loading ? (
           <div className="flex flex-col items-center justify-center py-16">
-            <div className="h-8 w-8 animate-spin rounded-full border-2 border-indigo-600 border-t-transparent" />
-            <p className="mt-4 text-xs text-slate-500">Generating adaptive questions tailored to your gaps...</p>
+            <div className="h-6 w-6 animate-spin border-2 border-stone-900 border-t-transparent dark:border-stone-100" />
+            <p className="mt-4 font-serif italic text-xs text-stone-500">Formulating diagnostic questions for candidate evaluation...</p>
           </div>
         ) : isSubmitted ? (
           /* Results View */
           <div className="py-6 text-center">
             <div
-              className={`mx-auto flex h-16 w-16 items-center justify-center rounded-full ${
+              className={`mx-auto flex h-14 w-14 items-center justify-center border ${
                 isPassing
-                  ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400'
-                  : 'bg-amber-100 text-amber-600 dark:bg-amber-950/60 dark:text-amber-400'
+                  ? 'border-emerald-600 bg-emerald-50 text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'
+                  : 'border-amber-800 bg-amber-50 text-amber-900 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-300'
               }`}
             >
-              {isPassing ? <CheckCircle2 className="h-8 w-8" /> : <AlertCircle className="h-8 w-8" />}
+              {isPassing ? <CheckCircle2 className="h-6 w-6" /> : <AlertCircle className="h-6 w-6" />}
             </div>
 
-            <h3 className="mt-4 text-xl font-bold text-slate-900 dark:text-slate-100">
-              {isPassing ? 'Assessment Mastered!' : 'Gaps Identified — Roadmap Adapted'}
+            <h3 className="mt-4 font-serif text-2xl font-normal text-stone-900 dark:text-stone-100">
+              {isPassing ? 'Diagnostic Mastered' : 'Variance Identified — Curriculum Adapted'}
             </h3>
 
-            <div className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-              Your Diagnostic Score:{' '}
-              <span className="font-mono font-bold text-lg text-slate-900 dark:text-slate-100">
+            <div className="mt-2 font-serif text-sm text-stone-600 dark:text-stone-400">
+              Candidate Diagnostic Score:{' '}
+              <span className="font-mono font-bold text-lg text-stone-900 dark:text-stone-100">
                 {scorePercentage}%
               </span>
             </div>
 
-            <div className="mx-auto mt-4 max-w-md rounded-xl border border-slate-200 bg-slate-50 p-4 text-left text-xs dark:border-slate-800 dark:bg-slate-800/40">
+            <div className="mx-auto mt-5 max-w-md border border-stone-200 bg-white p-4 text-left text-xs font-serif dark:border-stone-800 dark:bg-stone-950">
               {isPassing ? (
                 <div>
-                  <div className="font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
-                    <CheckCircle2 className="h-4 w-4" />
-                    <span>Roadmap Progress Verified (+40 XP)</span>
+                  <div className="font-semibold text-emerald-800 dark:text-emerald-300 font-mono text-[10px] uppercase tracking-wider">
+                    Syllabus Milestone Verified (+40 XP)
                   </div>
-                  <p className="mt-1 text-slate-600 dark:text-slate-400">
-                    You demonstrated solid conceptual command of {topic}. The next module in your Career Roadmap has been unlocked.
+                  <p className="mt-1 text-stone-600 dark:text-stone-400 leading-relaxed">
+                    You demonstrated rigorous conceptual command of {topic}. The subsequent milestone in your Adaptive Roadmap is now active.
                   </p>
                 </div>
               ) : (
                 <div>
-                  <div className="font-semibold text-amber-600 dark:text-amber-400 flex items-center gap-1.5">
-                    <AlertCircle className="h-4 w-4" />
-                    <span>Adaptive Intervention Triggered</span>
+                  <div className="font-semibold text-amber-900 dark:text-amber-300 font-mono text-[10px] uppercase tracking-wider">
+                    Curricular Intervention Triggered
                   </div>
-                  <p className="mt-1 text-slate-600 dark:text-slate-400">
-                    To ensure you don't encounter false confidence in job screenings, CareerPilot has automatically added{' '}
-                    <strong className="text-slate-800 dark:text-slate-200">"{topic}"</strong> to your{' '}
-                    <em>Knowledge Memory</em> and queued a targeted revision mission for you today.
+                  <p className="mt-1 text-stone-600 dark:text-stone-400 leading-relaxed">
+                    To eliminate false confidence in technical interviews, CareerPilot has cataloged{' '}
+                    <strong className="text-stone-900 dark:text-stone-100 font-medium">"{topic}"</strong> in your{' '}
+                    <em>Knowledge Memory</em> and queued a targeted revision mission.
                   </p>
                 </div>
               )}
@@ -229,17 +226,17 @@ export const QuizModal: React.FC<QuizModalProps> = ({
                 return (
                   <div
                     key={q.id}
-                    className={`rounded-lg border p-3 text-xs ${
+                    className={`border p-3.5 text-xs font-serif ${
                       isCorrect
-                        ? 'border-emerald-200 bg-emerald-50/50 dark:border-emerald-900/40 dark:bg-emerald-950/20'
-                        : 'border-amber-200 bg-amber-50/50 dark:border-amber-900/40 dark:bg-amber-950/20'
+                        ? 'border-emerald-300 bg-emerald-50/40 dark:border-emerald-900 dark:bg-emerald-950/20'
+                        : 'border-amber-300 bg-amber-50/40 dark:border-amber-900 dark:bg-amber-950/20'
                     }`}
                   >
-                    <div className="font-semibold text-slate-900 dark:text-slate-100">
+                    <div className="font-medium text-stone-900 dark:text-stone-100">
                       {idx + 1}. {q.question}
                     </div>
-                    <div className="mt-1 text-slate-600 dark:text-slate-400">
-                      <span className="font-medium">Explanation:</span> {q.explanation}
+                    <div className="mt-1.5 text-stone-600 dark:text-stone-400 text-[11px] leading-relaxed">
+                      <span className="font-mono text-[10px] uppercase text-stone-400">Analysis:</span> {q.explanation}
                     </div>
                   </div>
                 );
@@ -249,69 +246,62 @@ export const QuizModal: React.FC<QuizModalProps> = ({
             <div className="mt-6 flex justify-center gap-3">
               <button
                 onClick={onClose}
-                className="rounded-lg bg-indigo-600 px-5 py-2 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500"
+                className="border border-stone-900 bg-stone-900 px-6 py-2.5 font-mono text-xs uppercase tracking-wider text-amber-50 hover:bg-stone-800 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white"
               >
-                Return to Roadmap
+                Return to Syllabus
               </button>
             </div>
           </div>
         ) : (
           /* Active Question View */
           currentQ && (
-            <div className="py-4">
-              {/* Progress counter */}
-              <div className="flex items-center justify-between text-xs text-slate-500 mb-3">
+            <div className="py-4 font-serif">
+              <div className="flex items-baseline justify-between font-mono text-[10px] uppercase text-stone-400 mb-3">
                 <span>
                   Question {currentIndex + 1} of {questions.length}
                 </span>
-                <span className="font-mono">{Math.round(((currentIndex + 1) / questions.length) * 100)}%</span>
+                <span>{Math.round(((currentIndex + 1) / questions.length) * 100)}%</span>
               </div>
-              <div className="h-1.5 w-full bg-slate-100 rounded-full dark:bg-slate-800 mb-6 overflow-hidden">
+              <div className="h-0.5 w-full bg-stone-200 dark:bg-stone-800 mb-6 overflow-hidden">
                 <div
-                  className="h-full bg-indigo-600 transition-all duration-300"
+                  className="h-full bg-stone-900 dark:bg-stone-100 transition-all duration-300"
                   style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
                 />
               </div>
 
-              <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 leading-relaxed">
+              <h3 className="text-base font-normal text-stone-900 dark:text-stone-100 leading-relaxed">
                 {currentQ.question}
               </h3>
 
               {/* Options */}
-              <div className="mt-4 space-y-2.5">
+              <div className="mt-5 space-y-2.5">
                 {currentQ.options.map((opt, optIdx) => {
                   const isSelected = selectedAnswers[currentIndex] === optIdx;
                   return (
                     <button
                       key={optIdx}
                       onClick={() => handleSelectOption(optIdx)}
-                      className={`flex w-full items-start gap-3 rounded-xl border p-3.5 text-left text-xs transition-all ${
+                      className={`flex w-full items-start gap-3 border p-3.5 text-left text-xs transition-all ${
                         isSelected
-                          ? 'border-indigo-600 bg-indigo-50/70 text-indigo-950 dark:border-indigo-500 dark:bg-indigo-950/40 dark:text-indigo-200'
-                          : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:hover:border-slate-700 dark:hover:bg-slate-800/50 text-slate-700 dark:text-slate-300'
+                          ? 'border-stone-900 bg-stone-200/50 text-stone-900 dark:border-stone-100 dark:bg-stone-800 dark:text-stone-100 font-medium'
+                          : 'border-stone-200 bg-white hover:border-stone-400 dark:border-stone-800 dark:bg-stone-950 text-stone-700 dark:text-stone-300'
                       }`}
                     >
-                      <div
-                        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-[10px] font-bold ${
-                          isSelected
-                            ? 'border-indigo-600 bg-indigo-600 text-white'
-                            : 'border-slate-300 text-slate-500 dark:border-slate-700'
-                        }`}
-                      >
-                        {String.fromCharCode(65 + optIdx)}
-                      </div>
-                      <span className="flex-1 leading-relaxed">{opt}</span>
+                      <span className="font-mono text-[10px] font-bold uppercase text-stone-500 mt-0.5">
+                        [{String.fromCharCode(65 + optIdx)}]
+                      </span>
+                      <span className="flex-1 leading-relaxed font-serif">{opt}</span>
                     </button>
                   );
                 })}
               </div>
 
               {/* Navigation Controls */}
-              <div className="mt-8 flex items-center justify-between border-t border-slate-100 pt-4 dark:border-slate-800">
+              <div className="mt-8 flex items-center justify-between border-t border-stone-200 pt-4 dark:border-stone-800">
                 <button
                   onClick={handlePrev}
                   disabled={currentIndex === 0}
-                  className="rounded-lg px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-100 disabled:opacity-40 dark:text-slate-400 dark:hover:bg-slate-800"
+                  className="px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-stone-500 hover:text-stone-900 disabled:opacity-30 dark:hover:text-stone-100"
                 >
                   Previous
                 </button>
@@ -320,19 +310,17 @@ export const QuizModal: React.FC<QuizModalProps> = ({
                   <button
                     onClick={handleNext}
                     disabled={selectedAnswers[currentIndex] === undefined}
-                    className="flex items-center gap-1.5 rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800 disabled:opacity-40 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white"
+                    className="border border-stone-900 bg-stone-900 px-5 py-2 font-mono text-xs uppercase tracking-wider text-amber-50 hover:bg-stone-800 disabled:opacity-30 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white"
                   >
                     <span>Next Question</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
                   </button>
                 ) : (
                   <button
                     onClick={handleSubmit}
                     disabled={!allAnswered}
-                    className="flex items-center gap-1.5 rounded-lg bg-indigo-600 px-5 py-2 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 disabled:opacity-40"
+                    className="border border-stone-900 bg-stone-900 px-6 py-2 font-mono text-xs uppercase tracking-wider text-amber-50 hover:bg-stone-800 disabled:opacity-30 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white"
                   >
-                    <CheckCircle2 className="h-4 w-4" />
-                    <span>Submit & Adapt Roadmap</span>
+                    <span>Submit & Adapt Syllabus</span>
                   </button>
                 )}
               </div>

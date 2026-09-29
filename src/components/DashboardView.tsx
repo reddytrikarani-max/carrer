@@ -17,7 +17,7 @@ import {
   AlertCircle,
   Play,
   CheckCircle2,
-  Bot,
+  BookOpen,
 } from 'lucide-react';
 import { QuizModal } from './QuizModal';
 
@@ -39,7 +39,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
 
   const [activeQuizNode, setActiveQuizNode] = useState<{ id: string; title: string } | null>(null);
 
-  // Current active roadmap node
   const activeRoadmapNode =
     roadmap.find(r => r.status === 'in-progress' || r.status === 'revision-required') ||
     roadmap.find(r => r.status === 'recommended') ||
@@ -48,19 +47,20 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
   const recommendedProject = projects[0];
 
   return (
-    <div className="space-y-6">
-      {/* 1. Header Greeting & Key Metrics */}
-      <div className="rounded-2xl border border-slate-200/80 bg-gradient-to-r from-white via-indigo-50/20 to-white p-6 shadow-xs dark:border-slate-800 dark:from-slate-900 dark:via-indigo-950/20 dark:to-slate-900">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="space-y-8 text-stone-900 dark:text-stone-100">
+      {/* 1. Header Greeting & Dispatch Ribbon */}
+      <div className="border border-stone-300/80 bg-[#FAF8F5] p-8 shadow-xs dark:border-stone-800 dark:bg-stone-900/60">
+        <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-4 border-b border-stone-200 pb-6 dark:border-stone-800">
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-              <Sparkles className="h-3.5 w-3.5" />
-              <span>Personal Career Command Center</span>
+            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-amber-800 dark:text-amber-400">
+              <span>Candidate Dispatch</span>
+              <span aria-hidden="true">/</span>
+              <span>Academic Year 2026</span>
             </div>
-            <h1 className="mt-1 text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
+            <h1 className="mt-2 font-serif text-3xl md:text-5xl font-normal tracking-tight text-stone-900 dark:text-stone-100">
               Good Morning, {profile.name}
             </h1>
-            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+            <p className="mt-1 font-serif text-xs italic text-stone-500">
               {profile.degree} in {profile.branch} ({profile.currentYear}) · {profile.college}
             </p>
           </div>
@@ -68,240 +68,217 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
           <div className="flex items-center gap-3">
             <button
               onClick={() => onNavigate('careertwin')}
-              className="flex items-center gap-3 rounded-xl border border-indigo-200/80 bg-indigo-50/80 px-4 py-2.5 dark:border-indigo-900/60 dark:bg-indigo-950/40 text-left transition-colors hover:border-indigo-300"
+              className="border border-stone-300 bg-stone-100/60 px-5 py-3 text-left transition-colors hover:border-stone-400 dark:border-stone-800 dark:bg-stone-800/60"
             >
-              <div>
-                <span className="block text-[10px] font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-400">
-                  Target Career
-                </span>
-                <span className="block text-xs font-bold text-slate-900 dark:text-slate-100">
-                  {profile.targetCareer}
-                </span>
-              </div>
-              <div className="h-8 w-px bg-indigo-200 dark:bg-indigo-800" />
-              <div>
-                <span className="block text-[10px] text-slate-500">Readiness</span>
-                <span className="block font-mono text-base font-extrabold text-indigo-600 dark:text-indigo-400">
-                  {careerTwin.careerReadiness}%
-                </span>
-              </div>
+              <span className="block font-mono text-[9px] uppercase tracking-widest text-stone-500">
+                Target Track
+              </span>
+              <span className="block font-serif text-sm font-medium text-stone-900 dark:text-stone-100">
+                {profile.targetCareer}
+              </span>
+              <span className="block font-mono text-xs font-bold text-amber-900 dark:text-amber-300 mt-1">
+                {careerTwin.careerReadiness}% Verified Readiness
+              </span>
             </button>
           </div>
         </div>
 
-        {/* Quick Stat Ribbon */}
-        <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 border-t border-slate-100 pt-5 dark:border-slate-800">
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400">
-              <Flame className="h-5 w-5" />
+        {/* Quick Stat Ribbon (Clean Editorial Row) */}
+        <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-6 pt-2 text-xs">
+          <div>
+            <div className="font-mono text-xs uppercase tracking-widest text-stone-400">
+              Daily Streak
             </div>
-            <div>
-              <div className="font-mono text-sm font-bold tabular-nums text-slate-900 dark:text-slate-100">
-                {profile.streakDays} Days
-              </div>
-              <div className="text-[11px] text-slate-500 dark:text-slate-400">Daily Study Streak</div>
+            <div className="font-mono text-xl font-bold text-stone-900 dark:text-stone-100 mt-1">
+              {profile.streakDays} Days
             </div>
+            <div className="font-serif italic text-[11px] text-stone-500 mt-0.5">Consecutive practice</div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
-              <Award className="h-5 w-5" />
+          <div>
+            <div className="font-mono text-xs uppercase tracking-widest text-stone-400">
+              Candidate Tier
             </div>
-            <div>
-              <div className="font-mono text-sm font-bold tabular-nums text-slate-900 dark:text-slate-100">
-                {profile.xp} XP · {profile.level}
-              </div>
-              <div className="text-[11px] text-slate-500 dark:text-slate-400">Rank Progress</div>
+            <div className="font-mono text-xl font-bold text-stone-900 dark:text-stone-100 mt-1">
+              {profile.xp} XP
             </div>
+            <div className="font-serif italic text-[11px] text-stone-500 mt-0.5">{profile.level} Rank</div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400">
-              <Clock className="h-5 w-5" />
+          <div>
+            <div className="font-mono text-xs uppercase tracking-widest text-stone-400">
+              Weekly Volume
             </div>
-            <div>
-              <div className="font-mono text-sm font-bold tabular-nums text-slate-900 dark:text-slate-100">
-                {profile.weeklyHours} hrs
-              </div>
-              <div className="text-[11px] text-slate-500 dark:text-slate-400">Weekly Learning</div>
+            <div className="font-mono text-xl font-bold text-stone-900 dark:text-stone-100 mt-1">
+              {profile.weeklyHours} hrs
             </div>
+            <div className="font-serif italic text-[11px] text-stone-500 mt-0.5">Logged study time</div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-              <CheckCircle2 className="h-5 w-5" />
+          <div>
+            <div className="font-mono text-xs uppercase tracking-widest text-stone-400">
+              Milestones Solved
             </div>
-            <div>
-              <div className="font-mono text-sm font-bold tabular-nums text-slate-900 dark:text-slate-100">
-                {profile.completedTasksCount} Tasks
-              </div>
-              <div className="text-[11px] text-slate-500 dark:text-slate-400">Milestones Solved</div>
+            <div className="font-mono text-xl font-bold text-stone-900 dark:text-stone-100 mt-1">
+              {profile.completedTasksCount} Completed
             </div>
+            <div className="font-serif italic text-[11px] text-stone-500 mt-0.5">Verified diagnostic tasks</div>
           </div>
         </div>
       </div>
 
       {/* 2. Primary 2-Column Dashboard Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column (2 spans): Today's Mission & Adaptive Roadmap */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-8">
           {/* Today's Mission Widget */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-              <div className="flex items-center gap-2">
-                <CheckSquare className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
-                <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+          <div className="border border-stone-300/80 bg-[#FAF8F5] p-6 shadow-xs dark:border-stone-800 dark:bg-stone-900/60">
+            <div className="flex items-baseline justify-between pb-4 border-b border-stone-200 dark:border-stone-800">
+              <div className="flex items-baseline gap-3">
+                <h2 className="font-serif text-lg font-medium text-stone-900 dark:text-stone-100">
                   Today's Mission
                 </h2>
-                <span className="rounded bg-indigo-50 px-2 py-0.5 text-[10px] font-semibold text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400">
-                  {profile.studyTime} Focus
+                <span className="font-mono text-[10px] uppercase tracking-wider text-stone-500">
+                  · {profile.studyTime} Daily Window
                 </span>
               </div>
               <button
                 onClick={() => onNavigate('missions')}
-                className="text-xs font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
+                className="font-serif text-xs italic text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100 underline decoration-stone-300"
               >
-                View All
+                View Full Agenda
               </button>
             </div>
 
-            <div className="mt-4 space-y-2.5">
+            <div className="mt-5 space-y-3">
               {missions.slice(0, 4).map(mission => (
                 <div
                   key={mission.id}
                   onClick={() => toggleMission(mission.id)}
-                  className={`group flex items-center justify-between rounded-xl border p-3 cursor-pointer transition-all ${
+                  className={`group flex items-center justify-between border p-3.5 cursor-pointer transition-all ${
                     mission.completed
-                      ? 'border-emerald-200 bg-emerald-50/40 opacity-75 dark:border-emerald-900/40 dark:bg-emerald-950/20'
-                      : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:hover:border-slate-700 dark:hover:bg-slate-800/50'
+                      ? 'border-stone-200 bg-stone-100/50 opacity-60 dark:border-stone-800 dark:bg-stone-950/40'
+                      : 'border-stone-200 bg-white hover:border-stone-400 dark:border-stone-800 dark:bg-stone-900'
                   }`}
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3.5">
                     <input
                       type="checkbox"
                       checked={mission.completed}
                       onChange={() => toggleMission(mission.id)}
-                      className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                      className="h-4 w-4 rounded-none border-stone-400 text-stone-900 focus:ring-0"
                     />
                     <div>
                       <span
-                        className={`text-xs font-medium block ${
+                        className={`font-serif text-sm block ${
                           mission.completed
-                            ? 'line-through text-slate-400 dark:text-slate-500'
-                            : 'text-slate-900 dark:text-slate-100'
+                            ? 'line-through text-stone-400'
+                            : 'text-stone-900 dark:text-stone-100'
                         }`}
                       >
                         {mission.title}
                       </span>
-                      <div className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-2 mt-0.5">
+                      <div className="text-[11px] font-mono text-stone-500 flex items-center gap-2 mt-0.5">
                         <span>{mission.category}</span>
                         <span>·</span>
-                        <span className="font-mono">{mission.durationMinutes} min</span>
+                        <span>{mission.durationMinutes} min</span>
                         <span>·</span>
                         <span>{mission.difficulty}</span>
                       </div>
                     </div>
                   </div>
 
-                  <span
-                    className={`font-mono text-xs font-bold tabular-nums rounded px-2 py-0.5 ${
-                      mission.completed
-                        ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300'
-                        : 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400'
-                    }`}
-                  >
+                  <span className="font-mono text-xs font-bold text-amber-900 dark:text-amber-300">
                     +{mission.xp} XP
                   </span>
                 </div>
               ))}
             </div>
 
-            <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3 dark:border-slate-800">
-              <span className="text-[11px] text-slate-500">
-                Completed {missions.filter(m => m.completed).length} of {missions.length} daily goals
+            <div className="mt-5 flex items-center justify-between border-t border-stone-200 pt-4 dark:border-stone-800">
+              <span className="font-serif text-xs italic text-stone-500">
+                Completed {missions.filter(m => m.completed).length} of {missions.length} scheduled items
               </span>
               <button
                 onClick={() => onNavigate('focus')}
-                className="flex items-center gap-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
+                className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-stone-900 dark:text-stone-100 hover:text-amber-800"
               >
-                <Play className="h-3.5 w-3.5 fill-current" />
-                <span>Start Focus Timer</span>
+                <Play className="h-3 w-3 fill-current" />
+                <span>Launch Deep Work Sprints</span>
               </button>
             </div>
           </div>
 
-          {/* Current Adaptive Roadmap Module */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
-                <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-                  Current Roadmap Module
+          {/* Current Adaptive Roadmap Module (Syllabus Dossier) */}
+          <div className="border border-stone-300/80 bg-[#FAF8F5] p-6 shadow-xs dark:border-stone-800 dark:bg-stone-900/60">
+            <div className="flex items-baseline justify-between pb-4 border-b border-stone-200 dark:border-stone-800">
+              <div className="flex items-baseline gap-2">
+                <h2 className="font-serif text-lg font-medium text-stone-900 dark:text-stone-100">
+                  Active Syllabus Milestone
                 </h2>
+                <span className="font-mono text-[10px] uppercase text-stone-400">· Stage In Progress</span>
               </div>
               <button
                 onClick={() => onNavigate('roadmap')}
-                className="text-xs font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 flex items-center gap-1"
+                className="font-serif text-xs italic text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100 underline decoration-stone-300"
               >
-                <span>Full Roadmap</span>
-                <ArrowRight className="h-3.5 w-3.5" />
+                Full Syllabus
               </button>
             </div>
 
             {activeRoadmapNode && (
-              <div className="mt-4 rounded-xl border border-indigo-100 bg-indigo-50/30 p-4 dark:border-indigo-950 dark:bg-indigo-950/20">
+              <div className="mt-5 border border-stone-200 bg-white p-5 dark:border-stone-800 dark:bg-stone-900">
                 <div className="flex items-center justify-between">
-                  <span className="rounded bg-indigo-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-amber-800 dark:text-amber-400">
                     {activeRoadmapNode.category}
                   </span>
-                  <span className="text-xs text-slate-500">
+                  <span className="font-mono text-xs text-stone-400">
                     Est. {activeRoadmapNode.estimatedHours} hours
                   </span>
                 </div>
 
-                <h3 className="mt-2 text-base font-bold text-slate-900 dark:text-slate-100">
+                <h3 className="mt-2 font-serif text-xl font-medium text-stone-900 dark:text-stone-100">
                   {activeRoadmapNode.title}
                 </h3>
 
-                <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">
+                <p className="mt-1 font-serif text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
                   {activeRoadmapNode.whyItMatters}
                 </p>
 
-                {/* 4 Stages Snapshot */}
-                <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px]">
-                  <div className="rounded-lg bg-white p-2 border border-slate-200 dark:bg-slate-800/80 dark:border-slate-700">
-                    <div className="font-semibold text-indigo-600 dark:text-indigo-400">1. Learn</div>
-                    <div className="truncate text-slate-500">{activeRoadmapNode.fourStages.learn}</div>
+                {/* 4 Stages Snapshot (Editorial Box Grid) */}
+                <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                  <div className="border border-stone-200 bg-stone-50/50 p-2.5 dark:border-stone-800 dark:bg-stone-950/40">
+                    <div className="font-mono text-[10px] uppercase text-stone-500 font-bold">01. Learn</div>
+                    <div className="truncate font-serif text-stone-700 dark:text-stone-300 mt-0.5">{activeRoadmapNode.fourStages.learn}</div>
                   </div>
-                  <div className="rounded-lg bg-white p-2 border border-slate-200 dark:bg-slate-800/80 dark:border-slate-700">
-                    <div className="font-semibold text-indigo-600 dark:text-indigo-400">2. Practice</div>
-                    <div className="truncate text-slate-500">{activeRoadmapNode.fourStages.practice}</div>
+                  <div className="border border-stone-200 bg-stone-50/50 p-2.5 dark:border-stone-800 dark:bg-stone-950/40">
+                    <div className="font-mono text-[10px] uppercase text-stone-500 font-bold">02. Practice</div>
+                    <div className="truncate font-serif text-stone-700 dark:text-stone-300 mt-0.5">{activeRoadmapNode.fourStages.practice}</div>
                   </div>
-                  <div className="rounded-lg bg-white p-2 border border-slate-200 dark:bg-slate-800/80 dark:border-slate-700">
-                    <div className="font-semibold text-indigo-600 dark:text-indigo-400">3. Apply</div>
-                    <div className="truncate text-slate-500">{activeRoadmapNode.fourStages.apply}</div>
+                  <div className="border border-stone-200 bg-stone-50/50 p-2.5 dark:border-stone-800 dark:bg-stone-950/40">
+                    <div className="font-mono text-[10px] uppercase text-stone-500 font-bold">03. Apply</div>
+                    <div className="truncate font-serif text-stone-700 dark:text-stone-300 mt-0.5">{activeRoadmapNode.fourStages.apply}</div>
                   </div>
-                  <div className="rounded-lg bg-white p-2 border border-slate-200 dark:bg-slate-800/80 dark:border-slate-700">
-                    <div className="font-semibold text-indigo-600 dark:text-indigo-400">4. Test</div>
-                    <div className="truncate text-slate-500">{activeRoadmapNode.fourStages.test}</div>
+                  <div className="border border-stone-200 bg-stone-50/50 p-2.5 dark:border-stone-800 dark:bg-stone-950/40">
+                    <div className="font-mono text-[10px] uppercase text-stone-500 font-bold">04. Test</div>
+                    <div className="truncate font-serif text-stone-700 dark:text-stone-300 mt-0.5">{activeRoadmapNode.fourStages.test}</div>
                   </div>
                 </div>
 
-                <div className="mt-4 flex items-center justify-between pt-2">
-                  <div className="text-xs text-slate-500">
+                <div className="mt-5 flex items-center justify-between border-t border-stone-100 pt-3 dark:border-stone-800">
+                  <div className="font-mono text-xs text-stone-500">
                     {activeRoadmapNode.score ? (
-                      <span>Last Diagnostic Score: <strong className="font-mono text-slate-900 dark:text-slate-100">{activeRoadmapNode.score}%</strong></span>
+                      <span>Diagnostic Score: <strong className="text-stone-900 dark:text-stone-100">{activeRoadmapNode.score}%</strong></span>
                     ) : (
-                      <span>Not yet evaluated</span>
+                      <span>Diagnostic: Pending Verification</span>
                     )}
                   </div>
 
                   <button
                     onClick={() => setActiveQuizNode({ id: activeRoadmapNode.id, title: activeRoadmapNode.title })}
-                    className="flex items-center gap-1.5 rounded-lg bg-indigo-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-indigo-500"
+                    className="border border-stone-900 bg-stone-900 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-amber-50 hover:bg-stone-800 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white transition-colors"
                   >
-                    <Sparkles className="h-3.5 w-3.5" />
-                    <span>Take Adaptive Quiz</span>
+                    <span>Take Diagnostic Assessment</span>
                   </button>
                 </div>
               </div>
@@ -310,34 +287,33 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
 
           {/* Recommended Capstone Project */}
           {recommendedProject && (
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-                <div className="flex items-center gap-2">
-                  <FolderGit2 className="h-4 w-4 text-purple-600 dark:text-purple-400" />
-                  <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-                    Recommended Project of the Week
+            <div className="border border-stone-300/80 bg-[#FAF8F5] p-6 shadow-xs dark:border-stone-800 dark:bg-stone-900/60">
+              <div className="flex items-baseline justify-between pb-3 border-b border-stone-200 dark:border-stone-800">
+                <div className="flex items-baseline gap-2">
+                  <h2 className="font-serif text-lg font-medium text-stone-900 dark:text-stone-100">
+                    Recommended Capstone Monograph
                   </h2>
+                  <span className="font-mono text-[10px] uppercase text-stone-400">· Selected Spec</span>
                 </div>
                 <button
                   onClick={() => onNavigate('projects')}
-                  className="text-xs font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 flex items-center gap-1"
+                  className="font-serif text-xs italic text-stone-600 hover:text-stone-900 dark:text-stone-400 underline decoration-stone-300"
                 >
-                  <span>Project Hub</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
+                  Blueprint Hub
                 </button>
               </div>
 
               <div className="mt-4">
                 <div className="flex items-center gap-2">
-                  <span className="rounded bg-purple-100 px-2 py-0.5 text-[10px] font-bold text-purple-700 dark:bg-purple-950 dark:text-purple-300">
+                  <span className="border border-stone-300 px-2 py-0.5 font-mono text-[10px] uppercase font-bold text-stone-700 dark:border-stone-700 dark:text-stone-300">
                     {recommendedProject.difficulty}
                   </span>
-                  <span className="text-xs text-slate-500">{recommendedProject.duration}</span>
+                  <span className="font-serif text-xs text-stone-500">{recommendedProject.duration}</span>
                 </div>
-                <h3 className="mt-1 text-sm font-bold text-slate-900 dark:text-slate-100">
+                <h3 className="mt-2 font-serif text-base font-semibold text-stone-900 dark:text-stone-100">
                   {recommendedProject.title}
                 </h3>
-                <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">
+                <p className="mt-1 font-serif text-xs text-stone-600 dark:text-stone-400">
                   {recommendedProject.tagline}
                 </p>
 
@@ -345,7 +321,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
                   {recommendedProject.skillsLearned.map(skill => (
                     <span
                       key={skill}
-                      className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                      className="border border-stone-200 bg-stone-100/60 px-2 py-0.5 font-mono text-[10px] text-stone-700 dark:border-stone-800 dark:bg-stone-800 dark:text-stone-300"
                     >
                       {skill}
                     </span>
@@ -356,79 +332,74 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
           )}
         </div>
 
-        {/* Right Column (1 span): Career Twin Snapshot, Skill Gap, Topics to Revisit, AI Team */}
-        <div className="space-y-6">
+        {/* Right Column (1 span): Career Twin Snapshot & Dossier Notes */}
+        <div className="space-y-8">
           {/* Career Twin Snapshot */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-              <div className="flex items-center gap-2">
-                <Cpu className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
-                <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-                  Career Twin Snapshot
-                </h2>
-              </div>
+          <div className="border border-stone-300/80 bg-[#FAF8F5] p-6 shadow-xs dark:border-stone-800 dark:bg-stone-900/60">
+            <div className="flex items-baseline justify-between pb-3 border-b border-stone-200 dark:border-stone-800">
+              <h2 className="font-serif text-base font-medium text-stone-900 dark:text-stone-100">
+                The Career Twin
+              </h2>
               <button
                 onClick={() => onNavigate('careertwin')}
-                className="text-xs font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
+                className="font-serif text-xs italic text-stone-500 hover:text-stone-800 dark:hover:text-stone-200 underline decoration-stone-300"
               >
                 Inspect
               </button>
             </div>
 
-            <div className="mt-4 flex items-center gap-4">
-              {/* Circular Readiness Gauge */}
+            <div className="mt-5 flex items-center gap-5">
+              {/* Circular Readiness Gauge with Antique Styling */}
               <div className="relative flex h-20 w-20 shrink-0 items-center justify-center">
                 <svg className="h-full w-full -rotate-90" viewBox="0 0 36 36">
                   <path
-                    className="text-slate-100 dark:text-slate-800"
-                    strokeWidth="3.5"
+                    className="text-stone-200 dark:text-stone-800"
+                    strokeWidth="3"
                     stroke="currentColor"
                     fill="none"
                     d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                   />
                   <path
-                    className="text-indigo-600 dark:text-indigo-500 transition-all duration-1000"
+                    className="text-amber-900 dark:text-amber-300 transition-all duration-1000"
                     strokeDasharray={`${careerTwin.careerReadiness}, 100`}
-                    strokeWidth="3.5"
-                    strokeLinecap="round"
+                    strokeWidth="3"
+                    strokeLinecap="butt"
                     stroke="currentColor"
                     fill="none"
                     d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                   />
                 </svg>
                 <div className="absolute text-center">
-                  <span className="font-mono text-base font-extrabold text-slate-900 dark:text-slate-100">
+                  <span className="font-mono text-base font-bold text-stone-900 dark:text-stone-100">
                     {careerTwin.careerReadiness}%
                   </span>
                 </div>
               </div>
 
-              <div className="text-xs space-y-1">
-                <div className="font-semibold text-slate-900 dark:text-slate-100">
-                  {activeCareerRole.title}
+              <div className="text-xs font-serif space-y-1">
+                <div className="font-medium text-stone-900 dark:text-stone-100">
+                  {activeCareerRole.title} Track
                 </div>
-                <div className="text-slate-500">
-                  Strong: <span className="font-medium text-emerald-600 dark:text-emerald-400">{careerTwin.strongSkills.slice(0, 2).join(', ') || 'SQL, Git'}</span>
+                <div className="text-stone-500 text-[11px]">
+                  Strong: <span className="text-stone-800 dark:text-stone-200 italic">{careerTwin.strongSkills.slice(0, 2).join(', ') || 'SQL, Git'}</span>
                 </div>
-                <div className="text-slate-500">
-                  Critical Gaps: <span className="font-medium text-amber-600 dark:text-amber-400">{careerTwin.weakSkills.slice(0, 2).join(', ') || 'Java, DSA'}</span>
+                <div className="text-stone-500 text-[11px]">
+                  Critical Gaps: <span className="text-amber-900 dark:text-amber-300 italic">{careerTwin.weakSkills.slice(0, 2).join(', ') || 'Java, DSA'}</span>
                 </div>
               </div>
             </div>
 
             {/* Quick Skills breakdown mini */}
-            <div className="mt-4 space-y-2 border-t border-slate-100 pt-3 dark:border-slate-800 text-xs">
+            <div className="mt-5 space-y-3 border-t border-stone-200 pt-4 dark:border-stone-800 text-xs">
               {careerTwin.skillsBreakdown.slice(0, 4).map(s => (
                 <div key={s.name}>
-                  <div className="flex justify-between text-[11px] mb-0.5">
-                    <span className="text-slate-700 dark:text-slate-300 font-medium">{s.name}</span>
-                    <span className="font-mono text-slate-500">{s.current}% / {s.target}%</span>
+                  <div className="flex justify-between text-[11px] font-serif mb-1">
+                    <span className="text-stone-800 dark:text-stone-200 font-medium">{s.name}</span>
+                    <span className="font-mono text-stone-500">{s.current}% / {s.target}%</span>
                   </div>
-                  <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                  <div className="h-1 w-full bg-stone-200 dark:bg-stone-800 overflow-hidden">
                     <div
-                      className={`h-full rounded-full ${
-                        s.current >= s.target ? 'bg-emerald-500' : s.current >= 50 ? 'bg-indigo-500' : 'bg-amber-500'
-                      }`}
+                      className="h-full bg-stone-900 dark:bg-stone-100"
                       style={{ width: `${s.current}%` }}
                     />
                   </div>
@@ -437,35 +408,32 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          {/* Topics to Revisit (Knowledge Memory) */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-              <div className="flex items-center gap-2">
-                <RotateCcw className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-                <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-                  Topics to Revisit
-                </h2>
-              </div>
-              <span className="font-mono text-xs font-semibold text-amber-600">
-                {knowledgeMemory.length}
+          {/* Topics to Revisit (Knowledge Memory Ledger) */}
+          <div className="border border-stone-300/80 bg-[#FAF8F5] p-6 shadow-xs dark:border-stone-800 dark:bg-stone-900/60">
+            <div className="flex items-baseline justify-between pb-3 border-b border-stone-200 dark:border-stone-800">
+              <h2 className="font-serif text-base font-medium text-stone-900 dark:text-stone-100">
+                Knowledge Memory
+              </h2>
+              <span className="font-mono text-[10px] text-amber-800 dark:text-amber-400 font-bold uppercase">
+                {knowledgeMemory.length} flagged
               </span>
             </div>
 
-            <div className="mt-3 space-y-2.5">
+            <div className="mt-4 space-y-3">
               {knowledgeMemory.slice(0, 3).map(item => (
                 <div
                   key={item.id}
-                  className="rounded-xl border border-amber-200/80 bg-amber-50/40 p-3 text-xs dark:border-amber-950/60 dark:bg-amber-950/20"
+                  className="border border-stone-200 bg-white p-3 text-xs dark:border-stone-800 dark:bg-stone-900"
                 >
-                  <div className="flex items-center justify-between">
-                    <span className="font-semibold text-slate-900 dark:text-slate-100 line-clamp-1">
+                  <div className="flex items-center justify-between font-serif">
+                    <span className="font-medium text-stone-900 dark:text-stone-100 line-clamp-1">
                       {item.topic}
                     </span>
-                    <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-700 dark:bg-amber-900 dark:text-amber-300">
+                    <span className="font-mono text-[10px] text-amber-900 dark:text-amber-300 font-bold">
                       {item.mastery}%
                     </span>
                   </div>
-                  <p className="mt-1 text-[11px] text-slate-600 dark:text-slate-400 line-clamp-2">
+                  <p className="mt-1 font-serif text-[11px] text-stone-500 leading-relaxed line-clamp-2">
                     {item.reason}
                   </p>
                 </div>
@@ -473,61 +441,58 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          {/* AI Career Team Quick Launcher */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-              <div className="flex items-center gap-2">
-                <Users2 className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
-                <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-                  Your AI Career Team
-                </h2>
-              </div>
+          {/* AI Career Advisory Team */}
+          <div className="border border-stone-300/80 bg-[#FAF8F5] p-6 shadow-xs dark:border-stone-800 dark:bg-stone-900/60">
+            <div className="flex items-baseline justify-between pb-3 border-b border-stone-200 dark:border-stone-800">
+              <h2 className="font-serif text-base font-medium text-stone-900 dark:text-stone-100">
+                The Advisory Collective
+              </h2>
               <button
                 onClick={() => onNavigate('careerteam')}
-                className="text-xs font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
+                className="font-serif text-xs italic text-stone-500 hover:text-stone-800 dark:hover:text-stone-200 underline decoration-stone-300"
               >
                 Meet All 8
               </button>
             </div>
 
-            <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
+            <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
               <button
                 onClick={() => onNavigate('chat')}
-                className="rounded-xl border border-slate-200 p-2.5 text-left hover:border-indigo-400 hover:bg-indigo-50/50 dark:border-slate-800 dark:hover:bg-slate-800 transition-colors"
+                className="border border-stone-200 bg-white p-3 text-left hover:border-stone-400 dark:border-stone-800 dark:bg-stone-900 transition-colors"
               >
-                <div className="font-bold text-indigo-600 dark:text-indigo-400">CareerPilot</div>
-                <div className="text-[11px] text-slate-500 line-clamp-1">Lead AI Career Mentor</div>
+                <div className="font-serif font-medium text-stone-900 dark:text-stone-100">CareerPilot</div>
+                <div className="font-mono text-[10px] text-stone-400">Lead Mentor</div>
               </button>
 
               <button
                 onClick={() => onNavigate('careerteam')}
-                className="rounded-xl border border-slate-200 p-2.5 text-left hover:border-indigo-400 hover:bg-indigo-50/50 dark:border-slate-800 dark:hover:bg-slate-800 transition-colors"
+                className="border border-stone-200 bg-white p-3 text-left hover:border-stone-400 dark:border-stone-800 dark:bg-stone-900 transition-colors"
               >
-                <div className="font-bold text-cyan-600 dark:text-cyan-400">Learning Agent</div>
-                <div className="text-[11px] text-slate-500 line-clamp-1">Pacing & Study Blocks</div>
+                <div className="font-serif font-medium text-stone-900 dark:text-stone-100">Learning Agent</div>
+                <div className="font-mono text-[10px] text-stone-400">Pacing & Study</div>
               </button>
 
               <button
                 onClick={() => onNavigate('careerteam')}
-                className="rounded-xl border border-slate-200 p-2.5 text-left hover:border-indigo-400 hover:bg-indigo-50/50 dark:border-slate-800 dark:hover:bg-slate-800 transition-colors"
+                className="border border-stone-200 bg-white p-3 text-left hover:border-stone-400 dark:border-stone-800 dark:bg-stone-900 transition-colors"
               >
-                <div className="font-bold text-rose-600 dark:text-rose-400">Resume Agent</div>
-                <div className="text-[11px] text-slate-500 line-clamp-1">ATS & Consistency</div>
+                <div className="font-serif font-medium text-stone-900 dark:text-stone-100">Resume Agent</div>
+                <div className="font-mono text-[10px] text-stone-400">ATS & Claims</div>
               </button>
 
               <button
                 onClick={() => onNavigate('interview')}
-                className="rounded-xl border border-slate-200 p-2.5 text-left hover:border-indigo-400 hover:bg-indigo-50/50 dark:border-slate-800 dark:hover:bg-slate-800 transition-colors"
+                className="border border-stone-200 bg-white p-3 text-left hover:border-stone-400 dark:border-stone-800 dark:bg-stone-900 transition-colors"
               >
-                <div className="font-bold text-blue-600 dark:text-blue-400">Interview Agent</div>
-                <div className="text-[11px] text-slate-500 line-clamp-1">Mock STAR Rounds</div>
+                <div className="font-serif font-medium text-stone-900 dark:text-stone-100">Interview Agent</div>
+                <div className="font-mono text-[10px] text-stone-400">Mock Rounds</div>
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Quiz Modal */}
+      {/* Diagnostic Modal */}
       {activeQuizNode && (
         <QuizModal
           nodeId={activeQuizNode.id}

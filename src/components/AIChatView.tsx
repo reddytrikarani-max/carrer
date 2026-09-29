@@ -79,101 +79,51 @@ export const AIChatView: React.FC<AIChatViewProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="flex h-[calc(100vh-8rem)] flex-col rounded-2xl border border-slate-200 bg-white shadow-xs dark:border-slate-800 dark:bg-slate-900 overflow-hidden">
-      {/* Chat Header */}
-      <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4 dark:border-slate-800">
+    <div className="flex h-[calc(100vh-8.5rem)] flex-col border border-stone-300/80 bg-[#FAF8F5] shadow-xs dark:border-stone-800 dark:bg-stone-900/60 overflow-hidden font-serif">
+      {/* Editorial Header */}
+      <div className="flex items-center justify-between border-b border-stone-200 px-6 py-4 dark:border-stone-800">
         <div className="flex items-center gap-3">
-          <div className="relative">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-sm">
-              <Bot className="h-5 w-5" />
-            </div>
-            <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-white bg-emerald-500 dark:border-slate-900" />
+          <div className="flex h-9 w-9 items-center justify-center border border-stone-300 bg-white text-stone-900 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100">
+            <Bot className="h-4.5 w-4.5" />
           </div>
 
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-                CareerPilot AI Mentor
+              <h2 className="font-serif text-base font-medium text-stone-900 dark:text-stone-100">
+                Lead Mentor AI · CareerPilot
               </h2>
-              <span className="rounded bg-indigo-50 px-2 py-0.5 font-mono text-[10px] font-semibold text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400">
-                Live Context
+              <span className="font-mono text-[10px] uppercase tracking-widest text-emerald-800 dark:text-emerald-400">
+                · Live Context Active
               </span>
             </div>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400">
-              Grounded in your {profile.targetCareer} Career Twin ({careerTwin.careerReadiness}% ready)
+            <p className="font-serif italic text-xs text-stone-500">
+              Personalized career counsel grounded in your {careerTwin.careerReadiness}% readiness for {profile.targetCareer}.
             </p>
           </div>
         </div>
 
-        <button
-          onClick={clearChat}
-          className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-800 dark:hover:text-slate-300"
-          title="Clear Conversation"
-        >
-          <Trash2 className="h-4 w-4" />
-        </button>
-      </div>
-
-      {/* Message Stream */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-4 text-xs">
-        {chatMessages.map(msg => (
-          <div
-            key={msg.id}
-            className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={clearChat}
+            className="flex items-center gap-1.5 border border-stone-300 bg-white px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-stone-600 hover:bg-stone-100 dark:border-stone-800 dark:bg-stone-950 dark:text-stone-400 dark:hover:bg-stone-800 transition-colors"
           >
-            {msg.sender === 'ai' && (
-              <div className="mr-3 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400 mt-0.5">
-                <Sparkles className="h-3.5 w-3.5" />
-              </div>
-            )}
-
-            <div
-              className={`max-w-[80%] rounded-2xl p-4 leading-relaxed whitespace-pre-wrap ${
-                msg.sender === 'user'
-                  ? 'bg-indigo-600 text-white shadow-xs'
-                  : 'border border-slate-100 bg-slate-50 text-slate-800 dark:border-slate-800 dark:bg-slate-800/80 dark:text-slate-200'
-              }`}
-            >
-              {msg.text}
-              <div
-                className={`mt-2 text-[10px] font-mono ${
-                  msg.sender === 'user' ? 'text-indigo-200' : 'text-slate-400'
-                }`}
-              >
-                {msg.timestamp}
-              </div>
-            </div>
-          </div>
-        ))}
-
-        {loading && (
-          <div className="flex justify-start items-center gap-3">
-            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400">
-              <Sparkles className="h-3.5 w-3.5 animate-spin" />
-            </div>
-            <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4 text-slate-500 dark:border-slate-800 dark:bg-slate-800/80">
-              <div className="flex items-center gap-1.5">
-                <div className="h-2 w-2 animate-bounce rounded-full bg-indigo-600" />
-                <div className="h-2 w-2 animate-bounce rounded-full bg-indigo-600 [animation-delay:0.2s]" />
-                <div className="h-2 w-2 animate-bounce rounded-full bg-indigo-600 [animation-delay:0.4s]" />
-              </div>
-            </div>
-          </div>
-        )}
-        <div ref={messagesEndRef} />
+            <Trash2 className="h-3 w-3" />
+            <span>Clear Dialogue</span>
+          </button>
+        </div>
       </div>
 
-      {/* Suggested Quick Prompt Chips */}
-      <div className="border-t border-slate-100 px-6 py-2.5 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-          <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider shrink-0">
-            Suggested:
-          </span>
-          {QUICK_PROMPTS.map((prompt, idx) => (
+      {/* Quick Inquiries Strip (Editorial Segmented Prompts) */}
+      <div className="flex items-center gap-2 overflow-x-auto border-b border-stone-200/80 px-6 py-2.5 dark:border-stone-800/80 text-xs">
+        <span className="shrink-0 font-mono text-[10px] uppercase tracking-widest text-stone-400">
+          Suggested Inquiries:
+        </span>
+        <div className="flex items-center gap-2 shrink-0">
+          {QUICK_PROMPTS.map((prompt, i) => (
             <button
-              key={idx}
+              key={i}
               onClick={() => handleSendMessage(prompt)}
-              className="shrink-0 rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-[11px] text-slate-700 hover:border-indigo-400 hover:text-indigo-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:text-indigo-400 transition-colors whitespace-nowrap"
+              className="border border-stone-300 bg-white px-3 py-1 text-xs text-stone-700 hover:border-stone-900 hover:text-stone-900 dark:border-stone-800 dark:bg-stone-950 dark:text-stone-300 dark:hover:border-stone-600 transition-colors whitespace-nowrap font-serif"
             >
               {prompt}
             </button>
@@ -181,28 +131,65 @@ export const AIChatView: React.FC<AIChatViewProps> = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* Input Bar */}
-      <div className="border-t border-slate-200 p-4 dark:border-slate-800 bg-white dark:bg-slate-900">
+      {/* Messages Scroll Area */}
+      <div className="flex-1 overflow-y-auto p-6 space-y-5">
+        {chatMessages.map(msg => (
+          <div
+            key={msg.id}
+            className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+          >
+            <div
+              className={`max-w-2xl ${
+                msg.sender === 'user'
+                  ? 'border border-stone-300 bg-stone-200/60 p-4 text-stone-900 dark:border-stone-700 dark:bg-stone-800/80 dark:text-stone-100'
+                  : 'border-l-2 border-amber-900 bg-white p-5 text-stone-800 dark:border-amber-400 dark:bg-stone-950 dark:text-stone-200 shadow-2xs'
+              }`}
+            >
+              <div className="flex items-center justify-between pb-2 mb-2 border-b border-stone-200/60 dark:border-stone-800/60 font-mono text-[9px] uppercase tracking-widest text-stone-400">
+                <span>{msg.sender === 'user' ? profile.name : 'Lead Mentor Dispatch'}</span>
+                <span>{new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+              </div>
+
+              <div className="font-serif text-sm leading-relaxed whitespace-pre-wrap">
+                {msg.text}
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {loading && (
+          <div className="flex justify-start">
+            <div className="border-l-2 border-amber-900 bg-white p-4 dark:border-amber-400 dark:bg-stone-950 text-xs italic text-stone-500 font-serif">
+              Analyzing candidate dossier and synthesizing guidance...
+            </div>
+          </div>
+        )}
+        <div ref={messagesEndRef} />
+      </div>
+
+      {/* Editorial Textarea & Input Bar */}
+      <div className="border-t border-stone-200 p-4 dark:border-stone-800 bg-[#FAF8F5] dark:bg-[#0C0A09]">
         <form
           onSubmit={e => {
             e.preventDefault();
             handleSendMessage();
           }}
-          className="flex items-center gap-2"
+          className="flex items-center gap-3"
         >
           <input
             type="text"
             value={inputText}
             onChange={e => setInputText(e.target.value)}
-            placeholder="Ask CareerPilot anything (e.g. 'What should I learn today?')..."
-            className="flex-1 rounded-xl border border-slate-200 px-4 py-2.5 text-xs text-slate-900 focus:border-indigo-600 focus:outline-none dark:border-slate-800 dark:bg-slate-800 dark:text-slate-100"
+            placeholder="Ask CareerPilot regarding roadmap pacing, project choices, or technical blindspots..."
+            className="flex-1 border border-stone-300 bg-white px-4 py-2.5 text-xs text-stone-900 focus:border-stone-900 focus:outline-none dark:border-stone-700 dark:bg-stone-950 dark:text-stone-100 font-sans"
           />
           <button
             type="submit"
             disabled={!inputText.trim() || loading}
-            className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-xs hover:bg-indigo-500 disabled:opacity-40 transition-colors"
+            className="flex items-center gap-2 border border-stone-900 bg-stone-900 px-5 py-2.5 font-mono text-xs uppercase tracking-wider text-amber-50 hover:bg-stone-800 disabled:opacity-40 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white transition-colors"
           >
-            <Send className="h-4 w-4" />
+            <Send className="h-3.5 w-3.5" />
+            <span>Transmit</span>
           </button>
         </form>
       </div>

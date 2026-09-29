@@ -61,27 +61,28 @@ export const ResumeAnalyzerView: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="space-y-8 text-stone-900 dark:text-stone-100">
+      {/* Editorial Header (Plate IX) */}
+      <div className="border border-stone-300/80 bg-[#FAF8F5] p-8 shadow-xs dark:border-stone-800 dark:bg-stone-900/60 font-serif">
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-6 border-b border-stone-200 pb-6 dark:border-stone-800">
           <div className="max-w-2xl">
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-rose-600 dark:text-rose-400">
-              <FileText className="h-4 w-4" />
+            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-amber-800 dark:text-amber-400">
               <span>ATS & Consistency Audit Engine</span>
+              <span aria-hidden="true">/</span>
+              <span>Plate IX</span>
             </div>
-            <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
-              AI Resume Analyzer & Consistency Check
+            <h1 className="mt-2 font-serif text-3xl md:text-5xl font-normal tracking-tight text-stone-900 dark:text-stone-100">
+              Resume Analyzer & Consistency Check
             </h1>
-            <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              Audits your resume against <strong>{profile.targetCareer}</strong> hiring criteria. Crucially, it verifies that claims made on paper (e.g. "Advanced Java") actually align with your demonstrated diagnostic assessment scores.
+            <p className="mt-2 text-sm text-stone-600 dark:text-stone-400 leading-relaxed font-serif">
+              Audits candidate manuscripts against hiring rubrics for <strong>{profile.targetCareer}</strong>. Crucially cross-references claims made on paper (e.g. "Advanced Java") against demonstrated diagnostic scores to prevent embarrassing interview disqualification.
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
-            <label className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800 cursor-pointer transition-colors">
+          <div className="flex items-center gap-3">
+            <label className="flex items-center gap-1.5 border border-stone-300 bg-white px-3.5 py-2 font-mono text-xs uppercase tracking-wider text-stone-700 hover:bg-stone-100 dark:border-stone-800 dark:bg-stone-950 dark:text-stone-300 dark:hover:bg-stone-800 cursor-pointer transition-colors">
               <Upload className="h-3.5 w-3.5" />
-              <span>Upload Resume (TXT/PDF)</span>
+              <span>Import Manuscript (TXT)</span>
               <input
                 type="file"
                 accept=".txt,.pdf,.md"
@@ -93,127 +94,124 @@ export const ResumeAnalyzerView: React.FC = () => {
             <button
               onClick={handleRunAnalysis}
               disabled={isAnalyzing || !resumeText.trim()}
-              className="flex items-center gap-2 rounded-xl bg-rose-600 px-4 py-2 text-xs font-semibold text-white shadow-xs hover:bg-rose-500 disabled:opacity-40 transition-colors whitespace-nowrap"
+              className="flex items-center gap-2 border border-stone-900 bg-stone-900 px-5 py-2 font-mono text-xs uppercase tracking-wider text-amber-50 hover:bg-stone-800 disabled:opacity-40 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white transition-colors whitespace-nowrap"
             >
               <Sparkles className="h-3.5 w-3.5" />
-              <span>{isAnalyzing ? 'Auditing Resume...' : 'Analyze Resume'}</span>
+              <span>{isAnalyzing ? 'Auditing...' : 'Run Consistency Audit'}</span>
             </button>
           </div>
         </div>
+
+        {/* Informational Guidance Ribbon */}
+        <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-stone-500 font-serif">
+          <span>Target Rubric: <strong className="text-stone-800 dark:text-stone-200">{profile.targetCareer} Specialization</strong></span>
+          <span aria-hidden="true" className="text-stone-300 dark:text-stone-700">·</span>
+          <span>Diagnostic Cross-Check: <strong className="text-stone-800 dark:text-stone-200">Active</strong></span>
+        </div>
       </div>
 
-      {/* 2-Column: Editor / Text Input + Analysis Results */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Left: Resume Input */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900 flex flex-col">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-            <div className="text-xs font-bold text-slate-900 dark:text-slate-100">
-              Resume Content (Plaintext / Markdown)
-            </div>
-            <button
-              onClick={() => setResumeText(DEMO_RESUME_TEXT)}
-              className="text-[11px] text-indigo-600 dark:text-indigo-400 hover:underline"
-            >
-              Load Demo Student Resume
-            </button>
+      {/* Two Column Layout: Resume Editor & Consistency Inspection */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 font-serif">
+        {/* Left Column: Resume Textarea */}
+        <div className="border border-stone-300/80 bg-[#FAF8F5] p-6 shadow-xs dark:border-stone-800 dark:bg-stone-900/60">
+          <div className="flex items-baseline justify-between border-b border-stone-200 pb-3 dark:border-stone-800 mb-4">
+            <h3 className="font-serif text-base font-medium text-stone-900 dark:text-stone-100">
+              Candidate Resume Manuscript
+            </h3>
+            <span className="font-mono text-[10px] uppercase tracking-widest text-stone-400">
+              Plain Text / Markdown Format
+            </span>
           </div>
 
           <textarea
             value={resumeText}
             onChange={e => setResumeText(e.target.value)}
-            rows={22}
-            className="mt-3 w-full flex-1 rounded-xl border border-slate-200 p-3 font-mono text-xs text-slate-800 leading-relaxed focus:border-rose-600 focus:outline-none dark:border-slate-800 dark:bg-slate-800 dark:text-slate-200 resize-none"
-            placeholder="Paste your resume plain text or upload a document..."
+            rows={20}
+            className="w-full border border-stone-300 bg-white p-4 font-mono text-xs text-stone-900 dark:border-stone-700 dark:bg-stone-950 dark:text-stone-100 focus:border-stone-900 focus:outline-none leading-relaxed"
+            placeholder="Paste your resume text here..."
           />
 
-          <div className="mt-3 flex items-center justify-between text-xs text-slate-500">
-            <span>{resumeText.trim().split(/\s+/).length} words</span>
-            <button
-              onClick={handleRunAnalysis}
-              disabled={isAnalyzing}
-              className="flex items-center gap-1.5 font-semibold text-rose-600 dark:text-rose-400 hover:underline"
-            >
-              <span>Audit Now</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </button>
+          <div className="mt-4 flex justify-between font-mono text-[10px] text-stone-400">
+            <span>Words: {resumeText.split(/\s+/).filter(Boolean).length}</span>
+            <span>Character Count: {resumeText.length}</span>
           </div>
         </div>
 
-        {/* Right: Analysis & Consistency Engine Output */}
-        <div className="space-y-6">
+        {/* Right Column: Consistency Audit Output */}
+        <div className="border border-stone-300/80 bg-[#FAF8F5] p-6 shadow-xs dark:border-stone-800 dark:bg-stone-900/60">
+          <div className="flex items-baseline justify-between border-b border-stone-200 pb-3 dark:border-stone-800 mb-4">
+            <h3 className="font-serif text-base font-medium text-stone-900 dark:text-stone-100">
+              Audit Findings & Consistency Checks
+            </h3>
+            <span className="font-mono text-[10px] uppercase tracking-widest text-stone-400">
+              Curatorial Report
+            </span>
+          </div>
+
           {analysisResult ? (
-            <>
-              {/* ATS Score Card */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <span className="text-[11px] uppercase font-bold text-slate-400">
-                      ATS Benchmark Score
-                    </span>
-                    <h3 className="mt-0.5 text-base font-bold text-slate-900 dark:text-slate-100">
-                      Target Fit for {profile.targetCareer}
-                    </h3>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono text-3xl font-extrabold text-rose-600 dark:text-rose-400">
-                      {analysisResult.atsScore || 74}
-                    </span>
-                    <span className="text-xs text-slate-400">/ 100</span>
-                  </div>
+            <div className="space-y-6 text-xs font-serif">
+              {/* ATS Score Row */}
+              <div className="border border-stone-300/80 bg-white p-4 dark:border-stone-800 dark:bg-stone-950">
+                <div className="flex items-baseline justify-between">
+                  <span className="font-serif font-medium text-stone-900 dark:text-stone-100 text-sm">
+                    Candidate ATS Index
+                  </span>
+                  <span className="font-mono text-xl font-bold text-amber-900 dark:text-amber-300">
+                    {analysisResult.atsScore} / 100
+                  </span>
                 </div>
-
-                <p className="mt-3 text-xs text-slate-600 dark:text-slate-400 leading-relaxed bg-slate-50 dark:bg-slate-800/40 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
+                <div className="mt-2 h-1 w-full bg-stone-200 dark:bg-stone-800">
+                  <div
+                    className="h-full bg-stone-900 dark:bg-stone-100"
+                    style={{ width: `${analysisResult.atsScore}%` }}
+                  />
+                </div>
+                <p className="mt-2 font-serif italic text-stone-500 text-[11px]">
                   {analysisResult.summary}
                 </p>
               </div>
 
-              {/* CORE HIGHLIGHT: RESUME-SKILL CONSISTENCY CHECK */}
-              <div className="rounded-2xl border border-amber-200 bg-amber-50/50 p-5 dark:border-amber-950 dark:bg-amber-950/20 shadow-xs">
-                <div className="flex items-center gap-2 text-xs font-bold text-amber-900 dark:text-amber-200 mb-1">
-                  <ShieldAlert className="h-4 w-4 text-amber-600" />
+              {/* Crucial Consistency Check: Claims vs Reality */}
+              <div>
+                <div className="flex items-center gap-2 mb-2 font-mono text-[10px] uppercase tracking-widest text-amber-800 dark:text-amber-400 font-bold">
+                  <ShieldAlert className="h-3.5 w-3.5" />
                   <span>Resume-Skill Consistency Check</span>
                 </div>
-                <p className="text-[11px] text-amber-800 dark:text-amber-300 mb-3">
-                  Cross-referencing stated resume claims against your actual diagnostic assessment performance:
-                </p>
 
-                <div className="space-y-2.5">
-                  {analysisResult.consistencyChecks?.map((check: any, idx: number) => {
-                    const isMismatch = check.status === 'mismatch';
+                <div className="space-y-2">
+                  {analysisResult.consistencyChecks?.map((item: any, i: number) => {
+                    const isMismatch = item.status === 'mismatch';
                     return (
                       <div
-                        key={idx}
-                        className={`rounded-xl border p-3 text-xs ${
+                        key={i}
+                        className={`border p-3.5 text-xs ${
                           isMismatch
-                            ? 'border-amber-300 bg-white/90 dark:border-amber-900 dark:bg-slate-900'
-                            : 'border-emerald-200 bg-white/90 dark:border-emerald-950 dark:bg-slate-900'
+                            ? 'border-amber-900/30 bg-amber-50/70 dark:border-amber-900/60 dark:bg-amber-950/30'
+                            : 'border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-950'
                         }`}
                       >
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-bold text-slate-900 dark:text-slate-100">
-                            {check.skill}
+                        <div className="flex items-baseline justify-between">
+                          <span className="font-serif font-medium text-stone-900 dark:text-stone-100">
+                            {item.skill}
                           </span>
-                          {isMismatch ? (
-                            <span className="rounded bg-amber-100 px-2 py-0.5 text-[10px] font-bold text-amber-800 dark:bg-amber-950 dark:text-amber-300 flex items-center gap-1">
-                              <AlertTriangle className="h-3 w-3" />
-                              <span>Skill Verification Recommended</span>
-                            </span>
-                          ) : (
-                            <span className="rounded bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 flex items-center gap-1">
-                              <CheckCircle2 className="h-3 w-3" />
-                              <span>Verified Claim</span>
-                            </span>
-                          )}
+                          <span
+                            className={`font-mono text-[10px] uppercase px-1.5 py-0.2 font-bold ${
+                              isMismatch
+                                ? 'border border-amber-800 text-amber-900 dark:border-amber-700 dark:text-amber-300'
+                                : 'border border-stone-300 text-stone-700 dark:border-stone-700 dark:text-stone-300'
+                            }`}
+                          >
+                            {isMismatch ? 'Skill Verification Recommended' : 'Consistent Claim'}
+                          </span>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-500 mb-1.5 font-mono">
-                          <div>Resume Claim: <strong className="text-slate-800 dark:text-slate-200">{check.resumeClaim}</strong></div>
-                          <div>Assessment Score: <strong className="text-slate-800 dark:text-slate-200">{check.assessmentLevel}</strong></div>
+                        <div className="mt-1.5 flex gap-4 font-mono text-[11px] text-stone-600 dark:text-stone-400">
+                          <span>Resume Claim: <strong className="text-stone-900 dark:text-stone-100">{item.resumeClaim}</strong></span>
+                          <span>Assessed Reality: <strong className="text-stone-900 dark:text-stone-100">{item.assessmentLevel}</strong></span>
                         </div>
 
-                        <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
-                          {check.advice}
+                        <p className="mt-2 text-[11px] text-stone-600 dark:text-stone-400 italic">
+                          "{item.advice}"
                         </p>
                       </div>
                     );
@@ -221,71 +219,61 @@ export const ResumeAnalyzerView: React.FC = () => {
                 </div>
               </div>
 
-              {/* Strengths & Missing Areas */}
+              {/* Strengths & Missing Elements */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900 text-xs">
-                  <h4 className="font-bold text-emerald-600 dark:text-emerald-400 mb-2 flex items-center gap-1.5">
-                    <CheckCircle2 className="h-4 w-4" />
-                    <span>Identified Strengths</span>
-                  </h4>
-                  <ul className="space-y-1.5 text-slate-600 dark:text-slate-400 text-[11px]">
-                    {analysisResult.strengths?.map((s: string, i: number) => (
-                      <li key={i} className="flex items-start gap-1.5">
-                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 mt-1 shrink-0" />
+                <div className="border border-stone-200 bg-white p-3.5 dark:border-stone-800 dark:bg-stone-950">
+                  <div className="font-mono text-[10px] uppercase tracking-widest text-emerald-800 dark:text-emerald-400 font-bold mb-2">
+                    Strengths
+                  </div>
+                  <ul className="space-y-1.5 text-[11px] text-stone-700 dark:text-stone-300">
+                    {analysisResult.strengths?.map((s: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-1.5">
+                        <span className="text-stone-400">·</span>
                         <span>{s}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900 text-xs">
-                  <h4 className="font-bold text-rose-600 dark:text-rose-400 mb-2 flex items-center gap-1.5">
-                    <AlertCircle className="h-4 w-4" />
-                    <span>Missing Critical Areas</span>
-                  </h4>
-                  <ul className="space-y-1.5 text-slate-600 dark:text-slate-400 text-[11px]">
-                    {analysisResult.weaknesses?.map((w: string, i: number) => (
-                      <li key={i} className="flex items-start gap-1.5">
-                        <span className="h-1.5 w-1.5 rounded-full bg-rose-500 mt-1 shrink-0" />
-                        <span>{w}</span>
+                <div className="border border-stone-200 bg-white p-3.5 dark:border-stone-800 dark:bg-stone-950">
+                  <div className="font-mono text-[10px] uppercase tracking-widest text-stone-500 font-bold mb-2">
+                    Missing Competencies
+                  </div>
+                  <ul className="space-y-1.5 text-[11px] text-stone-700 dark:text-stone-300">
+                    {analysisResult.missingSkills?.map((s: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-1.5">
+                        <span className="text-stone-400">·</span>
+                        <span>{s}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               </div>
 
-              {/* Improvement Suggestions */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900 text-xs">
-                <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-2">
-                  Actionable Bullet Refactorings (XYZ Formula)
-                </h4>
-                <div className="space-y-2">
-                  {analysisResult.improvementSuggestions?.map((sug: string, idx: number) => (
-                    <div
-                      key={idx}
-                      className="rounded-xl border border-slate-100 bg-slate-50 p-3 text-[11px] text-slate-700 dark:border-slate-800 dark:bg-slate-800/40 dark:text-slate-300"
-                    >
-                      {sug}
-                    </div>
-                  ))}
+              {/* Suggestions */}
+              <div className="border-t border-stone-200 pt-4 dark:border-stone-800">
+                <div className="font-mono text-[10px] uppercase tracking-widest text-stone-500 mb-2 font-bold">
+                  Actionable Editorial Revisions
                 </div>
+                <ul className="space-y-1.5 text-[11px] text-stone-700 dark:text-stone-300">
+                  {analysisResult.improvementSuggestions?.map((s: string, idx: number) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="font-mono text-stone-400">0{idx + 1}.</span>
+                      <span>{s}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </>
+            </div>
           ) : (
-            <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 p-12 text-center text-xs text-slate-400 dark:border-slate-800">
-              <FileText className="h-8 w-8 text-slate-300 mb-3" />
-              <p className="font-medium text-slate-600 dark:text-slate-300">
-                No active resume audit loaded
+            <div className="flex flex-col items-center justify-center py-20 text-center text-xs text-stone-400 font-serif">
+              <FileText className="h-10 w-10 text-stone-300 dark:text-stone-700 mb-3" />
+              <p className="font-medium text-stone-600 dark:text-stone-300">
+                Audit Results Awaiting Execution
               </p>
-              <p className="mt-1 text-slate-400 max-w-sm">
-                Click <strong>"Analyze Resume"</strong> above to extract ATS keywords, identify missing tech stacks, and verify consistency against your diagnostic tests.
+              <p className="mt-1 max-w-xs text-[11px] text-stone-400 italic">
+                Click "Run Consistency Audit" to inspect claims, detect ATS blindspots, and verify demonstrated competencies.
               </p>
-              <button
-                onClick={handleRunAnalysis}
-                className="mt-4 rounded-lg bg-rose-600 px-4 py-2 font-semibold text-white shadow-xs hover:bg-rose-500 transition-colors"
-              >
-                Run Immediate Audit
-              </button>
             </div>
           )}
         </div>

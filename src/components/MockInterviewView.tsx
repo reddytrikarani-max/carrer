@@ -90,232 +90,248 @@ export const MockInterviewView: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="space-y-8 text-stone-900 dark:text-stone-100 font-serif">
+      {/* Editorial Header (Plate X) */}
+      <div className="border border-stone-300/80 bg-[#FAF8F5] p-8 shadow-xs dark:border-stone-800 dark:bg-stone-900/60">
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-6 border-b border-stone-200 pb-6 dark:border-stone-800">
           <div className="max-w-2xl">
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">
-              <Mic2 className="h-4 w-4" />
+            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-amber-800 dark:text-amber-400">
               <span>Placement Screening Simulator</span>
+              <span aria-hidden="true">/</span>
+              <span>Plate X</span>
             </div>
-            <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
-              AI Mock Interview
+            <h1 className="mt-2 font-serif text-3xl md:text-5xl font-normal tracking-tight text-stone-900 dark:text-stone-100">
+              AI Mock Interview & Evaluation
             </h1>
-            <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              Interactive interview coach. Evaluates relevance, technical depth, STAR structural clarity, and filler phrases, providing instant benchmark models.
+            <p className="mt-2 font-serif text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
+              Oral defense rehearsal against realistic placement questions for <strong>{profile.targetCareer}</strong>. The evaluation jury critiques technical rigor, clarity, and STAR storytelling.
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-500">Mode:</span>
-            <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg dark:bg-slate-800">
-              {INTERVIEW_MODES.map(mode => (
-                <button
-                  key={mode}
-                  onClick={() => {
-                    setActiveMode(mode);
-                    setQuestionIndex(0);
-                    setEvaluation(null);
-                    setUserAnswer('');
-                  }}
-                  className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
-                    activeMode === mode
-                      ? 'bg-white text-slate-900 shadow-xs dark:bg-slate-700 dark:text-white'
-                      : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
-                  }`}
-                >
-                  {mode}
-                </button>
-              ))}
-            </div>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleResetSession}
+              className="flex items-center gap-1.5 border border-stone-300 bg-white px-3.5 py-2 font-mono text-xs uppercase tracking-wider text-stone-700 hover:bg-stone-100 dark:border-stone-800 dark:bg-stone-950 dark:text-stone-300 dark:hover:bg-stone-800 transition-colors"
+            >
+              <RotateCcw className="h-3 w-3" />
+              <span>Reset Jury</span>
+            </button>
           </div>
+        </div>
+
+        {/* Mode Selector Tabs (Clean Editorial Segmented Controls) */}
+        <div className="mt-6 flex flex-wrap gap-2 pt-2">
+          {INTERVIEW_MODES.map(mode => {
+            const isSelected = activeMode === mode;
+            return (
+              <button
+                key={mode}
+                onClick={() => {
+                  setActiveMode(mode);
+                  setQuestionIndex(0);
+                  setEvaluation(null);
+                  setUserAnswer('');
+                }}
+                className={`border px-4 py-2 font-serif text-xs transition-colors ${
+                  isSelected
+                    ? 'border-stone-900 bg-stone-900 text-amber-50 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 font-medium'
+                    : 'border-stone-300 bg-white hover:border-stone-400 dark:border-stone-800 dark:bg-stone-950 text-stone-700 dark:text-stone-300'
+                }`}
+              >
+                <span>{mode} Screening</span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Main Interview Arena */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Left: AI Question & Student Answer Area */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs dark:border-slate-800 dark:bg-slate-900 flex flex-col justify-between">
+      {/* Oral Prompt & Answer Studio */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Left Column: Question & Candidate Answer */}
+        <div className="border border-stone-300/80 bg-[#FAF8F5] p-6 shadow-xs dark:border-stone-800 dark:bg-stone-900/60 flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3 dark:border-slate-800">
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
-                  QUESTION {questionIndex + 1} OF {currentQuestions.length}
-                </span>
-                <span className="text-xs text-slate-400">· {activeMode} Round</span>
-              </div>
-              <button
-                onClick={handleResetSession}
-                className="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 flex items-center gap-1"
-              >
-                <RotateCcw className="h-3.5 w-3.5" />
-                <span>Restart</span>
-              </button>
+            <div className="flex items-baseline justify-between border-b border-stone-200 pb-3 dark:border-stone-800 mb-4 font-mono text-[10px] uppercase tracking-widest text-stone-400">
+              <span>Oral Prompt {questionIndex + 1} of {currentQuestions.length}</span>
+              <span>{activeMode} Round</span>
             </div>
 
-            {/* Question Text */}
-            <div className="mt-4 rounded-xl border border-blue-100 bg-blue-50/50 p-4 text-xs dark:border-blue-950 dark:bg-blue-950/20">
-              <div className="font-semibold text-blue-900 dark:text-blue-200 text-sm leading-relaxed">
+            {/* The Question Prompt */}
+            <div className="border-l-2 border-stone-900 bg-white p-5 dark:border-stone-100 dark:bg-stone-950">
+              <span className="font-mono text-[9px] uppercase tracking-widest text-amber-800 dark:text-amber-400 block mb-1">
+                Jury Question
+              </span>
+              <p className="font-serif text-base font-normal text-stone-900 dark:text-stone-100 leading-snug">
                 "{currentQuestion}"
-              </div>
+              </p>
             </div>
 
             {/* Answer Input */}
-            <div className="mt-5">
-              <div className="flex items-center justify-between text-xs text-slate-500 mb-1.5">
-                <span>Your Spoken or Typed Response</span>
-                <span className="font-mono">{userAnswer.trim().split(/\s+/).filter(Boolean).length} words</span>
+            <div className="mt-6">
+              <div className="flex items-baseline justify-between mb-2">
+                <label className="font-serif text-xs font-medium text-stone-700 dark:text-stone-300">
+                  Candidate Formulation & Defense
+                </label>
+                <span className="font-mono text-[10px] text-stone-400">
+                  {userAnswer.split(/\s+/).filter(Boolean).length} words
+                </span>
               </div>
 
               <textarea
                 value={userAnswer}
                 onChange={e => setUserAnswer(e.target.value)}
-                rows={9}
-                className="w-full rounded-xl border border-slate-200 p-3.5 text-xs text-slate-800 leading-relaxed focus:border-blue-600 focus:outline-none dark:border-slate-800 dark:bg-slate-800 dark:text-slate-100 resize-none"
-                placeholder={
-                  activeMode === 'Behavioral'
-                    ? 'Structure using STAR: Situation (context) -> Task (goal) -> Action (what you specifically coded/did) -> Result (quantified metrics)...'
-                    : 'Articulate your technical reasoning, internal algorithms, edge cases, and time/space complexity trade-offs...'
-                }
+                rows={10}
+                placeholder="Structure your response clearly. For behavioral questions, adopt the Situation, Task, Action, Result (STAR) framework..."
+                className="w-full border border-stone-300 bg-white p-4 font-serif text-xs text-stone-900 focus:border-stone-900 focus:outline-none dark:border-stone-700 dark:bg-stone-950 dark:text-stone-100 leading-relaxed"
               />
             </div>
           </div>
 
-          <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4 dark:border-slate-800">
-            <span className="text-[11px] text-slate-400">
-              +30 XP awarded per evaluated response
-            </span>
+          <div className="mt-6 flex items-center justify-between border-t border-stone-200 pt-4 dark:border-stone-800">
+            <button
+              onClick={handleNextQuestion}
+              className="font-mono text-xs uppercase tracking-wider text-stone-500 hover:text-stone-900 dark:hover:text-stone-100"
+            >
+              Skip Question
+            </button>
 
             <button
               onClick={handleEvaluate}
               disabled={isEvaluating || !userAnswer.trim()}
-              className="flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2.5 text-xs font-semibold text-white shadow-xs hover:bg-blue-500 disabled:opacity-40 transition-colors"
+              className="flex items-center gap-2 border border-stone-900 bg-stone-900 px-5 py-2 font-mono text-xs uppercase tracking-wider text-amber-50 hover:bg-stone-800 disabled:opacity-40 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white transition-colors"
             >
-              <Sparkles className="h-4 w-4" />
-              <span>{isEvaluating ? 'Evaluating Depth & Clarity...' : 'Submit Response for AI Scoring'}</span>
+              <Sparkles className="h-3.5 w-3.5" />
+              <span>{isEvaluating ? 'Deliberating...' : 'Submit to Jury'}</span>
             </button>
           </div>
         </div>
 
-        {/* Right: AI Scoring & Diagnostic Feedback */}
-        <div className="space-y-6">
+        {/* Right Column: Jury Evaluation Rubric */}
+        <div className="border border-stone-300/80 bg-[#FAF8F5] p-6 shadow-xs dark:border-stone-800 dark:bg-stone-900/60">
+          <div className="flex items-baseline justify-between border-b border-stone-200 pb-3 dark:border-stone-800 mb-4 font-mono text-[10px] uppercase tracking-widest text-stone-400">
+            <span>Evaluation Dossier</span>
+            <span>Rubric Analysis</span>
+          </div>
+
           {evaluation ? (
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs dark:border-slate-800 dark:bg-slate-900 space-y-5">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-4 dark:border-slate-800">
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                    Response Composite Score
+            <div className="space-y-6 text-xs">
+              {/* Overall Score */}
+              <div className="border border-stone-300/80 bg-white p-4 dark:border-stone-800 dark:bg-stone-950">
+                <div className="flex items-baseline justify-between">
+                  <span className="font-serif font-medium text-stone-900 dark:text-stone-100 text-sm">
+                    Composite Screening Index
                   </span>
-                  <div className="flex items-baseline gap-2 mt-0.5">
-                    <span className="font-mono text-3xl font-extrabold text-blue-600 dark:text-blue-400">
-                      {evaluation.overallScore || 84}
-                    </span>
-                    <span className="text-xs text-slate-400">/ 100</span>
-                  </div>
-                </div>
-
-                <button
-                  onClick={handleNextQuestion}
-                  className="flex items-center gap-1.5 rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white transition-colors"
-                >
-                  <span>Next Question</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </button>
-              </div>
-
-              {/* 4 Rubric Scores */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-                <div className="rounded-xl border border-slate-100 bg-slate-50 p-2.5 text-center dark:border-slate-800 dark:bg-slate-800/40">
-                  <span className="text-[10px] text-slate-400 uppercase font-semibold">Relevance</span>
-                  <div className="font-mono font-bold text-slate-900 dark:text-slate-100 text-sm mt-0.5">
-                    {evaluation.relevance || 8} / 10
-                  </div>
-                </div>
-
-                <div className="rounded-xl border border-slate-100 bg-slate-50 p-2.5 text-center dark:border-slate-800 dark:bg-slate-800/40">
-                  <span className="text-[10px] text-slate-400 uppercase font-semibold">Technical Depth</span>
-                  <div className="font-mono font-bold text-slate-900 dark:text-slate-100 text-sm mt-0.5">
-                    {evaluation.technicalAccuracy || 8} / 10
-                  </div>
-                </div>
-
-                <div className="rounded-xl border border-slate-100 bg-slate-50 p-2.5 text-center dark:border-slate-800 dark:bg-slate-800/40">
-                  <span className="text-[10px] text-slate-400 uppercase font-semibold">STAR Structure</span>
-                  <div className="font-mono font-bold text-slate-900 dark:text-slate-100 text-sm mt-0.5">
-                    {evaluation.clarity || 8} / 10
-                  </div>
-                </div>
-
-                <div className="rounded-xl border border-slate-100 bg-slate-50 p-2.5 text-center dark:border-slate-800 dark:bg-slate-800/40">
-                  <span className="text-[10px] text-slate-400 uppercase font-semibold">Communication</span>
-                  <div className="font-mono font-bold text-slate-900 dark:text-slate-100 text-sm mt-0.5">
-                    {evaluation.communication || 9} / 10
-                  </div>
-                </div>
-              </div>
-
-              {/* What went well */}
-              <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 dark:border-emerald-950 dark:bg-emerald-950/20 text-xs">
-                <div className="font-bold text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5 mb-1.5">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                  <span>What went well:</span>
-                </div>
-                <ul className="space-y-1 text-slate-700 dark:text-slate-300 text-[11px]">
-                  {evaluation.whatWentWell?.map((item: string, i: number) => (
-                    <li key={i} className="flex items-start gap-1.5">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 mt-1 shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* What to improve */}
-              <div className="rounded-xl border border-amber-100 bg-amber-50/50 p-4 dark:border-amber-950 dark:bg-amber-950/20 text-xs">
-                <div className="font-bold text-amber-800 dark:text-amber-300 flex items-center gap-1.5 mb-1.5">
-                  <AlertCircle className="h-4 w-4 text-amber-600" />
-                  <span>Actionable points to improve:</span>
-                </div>
-                <ul className="space-y-1 text-slate-700 dark:text-slate-300 text-[11px]">
-                  {evaluation.whatToImprove?.map((item: string, i: number) => (
-                    <li key={i} className="flex items-start gap-1.5">
-                      <span className="h-1.5 w-1.5 rounded-full bg-amber-500 mt-1 shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Benchmark Answer Structure */}
-              <div className="rounded-xl border border-slate-100 bg-slate-50 p-4 text-xs dark:border-slate-800 dark:bg-slate-800/40">
-                <div className="font-bold text-slate-900 dark:text-slate-100 mb-1 flex items-center gap-1.5">
-                  <HelpCircle className="h-4 w-4 text-blue-600" />
-                  <span>Model Benchmark Answer Structure:</span>
-                </div>
-                <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-mono">
-                  {evaluation.suggestedAnswerStructure}
-                </p>
-              </div>
-
-              {/* Follow-up Question Preview */}
-              {evaluation.nextFollowUpQuestion && (
-                <div className="rounded-xl border border-indigo-100 bg-indigo-50/40 p-3 text-xs dark:border-indigo-950 dark:bg-indigo-950/20 text-slate-700 dark:text-slate-300">
-                  <span className="font-bold text-indigo-700 dark:text-indigo-400 block mb-0.5">
-                    Recommended Follow-up Question:
+                  <span className="font-mono text-xl font-bold text-amber-900 dark:text-amber-300">
+                    {evaluation.overallScore} / 100
                   </span>
-                  <span className="italic text-[11px]">"{evaluation.nextFollowUpQuestion}"</span>
+                </div>
+                <div className="mt-2 h-1 w-full bg-stone-200 dark:bg-stone-800">
+                  <div
+                    className="h-full bg-stone-900 dark:bg-stone-100"
+                    style={{ width: `${evaluation.overallScore}%` }}
+                  />
+                </div>
+              </div>
+
+              {/* 4 Pillar Breakdown */}
+              <div className="grid grid-cols-2 gap-3 text-xs">
+                <div className="border border-stone-200 bg-white p-3 dark:border-stone-800 dark:bg-stone-950">
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-stone-400 block">
+                    Relevance
+                  </span>
+                  <span className="font-mono text-base font-bold text-stone-900 dark:text-stone-100">
+                    {evaluation.relevance} / 10
+                  </span>
+                </div>
+
+                <div className="border border-stone-200 bg-white p-3 dark:border-stone-800 dark:bg-stone-950">
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-stone-400 block">
+                    Technical Depth
+                  </span>
+                  <span className="font-mono text-base font-bold text-stone-900 dark:text-stone-100">
+                    {evaluation.technicalAccuracy} / 10
+                  </span>
+                </div>
+
+                <div className="border border-stone-200 bg-white p-3 dark:border-stone-800 dark:bg-stone-950">
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-stone-400 block">
+                    Structure & STAR
+                  </span>
+                  <span className="font-mono text-base font-bold text-stone-900 dark:text-stone-100">
+                    {evaluation.clarity} / 10
+                  </span>
+                </div>
+
+                <div className="border border-stone-200 bg-white p-3 dark:border-stone-800 dark:bg-stone-950">
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-stone-400 block">
+                    Communication
+                  </span>
+                  <span className="font-mono text-base font-bold text-stone-900 dark:text-stone-100">
+                    {evaluation.communication} / 10
+                  </span>
+                </div>
+              </div>
+
+              {/* Commendations & Blindspots */}
+              <div className="space-y-4">
+                <div className="border border-stone-200 bg-white p-3.5 dark:border-stone-800 dark:bg-stone-950">
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-emerald-800 dark:text-emerald-400 font-bold block mb-1.5">
+                    Commended Elements
+                  </span>
+                  <ul className="space-y-1 text-stone-700 dark:text-stone-300">
+                    {evaluation.whatWentWell?.map((item: string, i: number) => (
+                      <li key={i} className="flex items-start gap-1.5">
+                        <span className="text-stone-400">·</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="border border-stone-200 bg-white p-3.5 dark:border-stone-800 dark:bg-stone-950">
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-amber-800 dark:text-amber-400 font-bold block mb-1.5">
+                    Critical Blindspots
+                  </span>
+                  <ul className="space-y-1 text-stone-700 dark:text-stone-300">
+                    {evaluation.whatToImprove?.map((item: string, i: number) => (
+                      <li key={i} className="flex items-start gap-1.5">
+                        <span className="text-stone-400">·</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Model Benchmark Architecture */}
+              {evaluation.suggestedAnswerStructure && (
+                <div className="border-l-2 border-stone-400 bg-white p-3.5 dark:border-stone-600 dark:bg-stone-950 text-stone-700 dark:text-stone-300">
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-stone-400 block mb-1">
+                    Exemplary Architecture Benchmark
+                  </span>
+                  <p className="italic text-[11px] leading-relaxed">
+                    "{evaluation.suggestedAnswerStructure}"
+                  </p>
                 </div>
               )}
+
+              <div className="pt-2">
+                <button
+                  onClick={handleNextQuestion}
+                  className="w-full flex items-center justify-center gap-2 border border-stone-900 bg-stone-900 py-2.5 font-mono text-xs uppercase tracking-wider text-amber-50 hover:bg-stone-800 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white transition-colors"
+                >
+                  <span>Advance to Next Screening Question</span>
+                  <ArrowRight className="h-3 w-3" />
+                </button>
+              </div>
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 p-12 text-center text-xs text-slate-400 dark:border-slate-800">
-              <Mic2 className="h-8 w-8 text-slate-300 mb-3" />
-              <p className="font-medium text-slate-600 dark:text-slate-300">
-                Evaluation results will appear here
+            <div className="flex flex-col items-center justify-center py-20 text-center text-xs text-stone-400">
+              <Mic2 className="h-10 w-10 text-stone-300 dark:text-stone-700 mb-3" />
+              <p className="font-medium text-stone-600 dark:text-stone-300">
+                Awaiting Candidate Defense
               </p>
-              <p className="mt-1 text-slate-400 max-w-xs">
-                Provide your answer to question #{questionIndex + 1} on the left to receive an objective technical and STAR rating.
+              <p className="mt-1 max-w-xs text-[11px] text-stone-400 italic">
+                Formulate your answer and click "Submit to Jury" for structured scoring and rubric feedback.
               </p>
             </div>
           )}

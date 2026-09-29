@@ -12,9 +12,8 @@ import {
   BarChart3,
   Bot,
   CheckCircle2,
-  Layers,
-  Flame,
   Award,
+  BookOpen,
 } from 'lucide-react';
 import { useCareerPilot } from '../context/CareerPilotContext';
 
@@ -30,50 +29,50 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   const { theme, toggleTheme } = useCareerPilot();
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors">
-      {/* 3-Zone Top Bar Contract */}
-      <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/80 px-6 py-4 backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-900/80">
+    <div className="min-h-screen bg-[#FAF8F5] text-stone-900 dark:bg-[#0C0A09] dark:text-stone-100 transition-colors selection:bg-stone-900 selection:text-amber-50">
+      {/* Editorial Top Bar (3-Zone Contract) */}
+      <header className="sticky top-0 z-40 border-b border-stone-200/80 bg-[#FAF8F5]/90 px-6 py-4 backdrop-blur-md dark:border-stone-800/80 dark:bg-[#0C0A09]/90">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
-          {/* Zone 1: Single text element wordmark */}
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white shadow-xs">
-              <Sparkles className="h-4 w-4" />
-            </div>
-            <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100">
-              CareerPilot AI
+          {/* Zone 1: Single text element wordmark with editorial serif */}
+          <div className="flex items-baseline gap-2">
+            <span className="font-serif text-2xl font-medium tracking-tight text-stone-900 dark:text-stone-100">
+              CareerPilot <span className="italic font-normal text-amber-800 dark:text-amber-400">AI</span>
+            </span>
+            <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-widest text-stone-500">
+              · Vol. 2026
             </span>
           </div>
 
           {/* Zone 2: 4-6 clean text navigation links */}
-          <nav className="hidden md:flex items-center gap-8 text-xs font-medium text-slate-600 dark:text-slate-400">
-            <a href="#how-it-works" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-              How It Works
+          <nav className="hidden md:flex items-center gap-8 text-xs tracking-wider uppercase font-medium text-stone-600 dark:text-stone-400">
+            <a href="#methodology" className="hover:text-stone-900 dark:hover:text-stone-100 transition-colors">
+              Methodology
             </a>
-            <a href="#career-twin" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-              AI Career Twin
+            <a href="#career-twin" className="hover:text-stone-900 dark:hover:text-stone-100 transition-colors">
+              Digital Twin
             </a>
-            <a href="#skill-gap" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-              Skill Gap
+            <a href="#skill-gap" className="hover:text-stone-900 dark:hover:text-stone-100 transition-colors">
+              Skill Delta
             </a>
-            <a href="#roadmap" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-              Adaptive Roadmap
+            <a href="#roadmap" className="hover:text-stone-900 dark:hover:text-stone-100 transition-colors">
+              Syllabus
             </a>
-            <a href="#features" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-              Features
+            <a href="#features" className="hover:text-stone-900 dark:hover:text-stone-100 transition-colors">
+              The Suite
             </a>
           </nav>
 
           {/* Zone 3: 1-2 primary actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <button
               onClick={onExplore}
-              className="text-xs font-medium text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white px-3 py-1.5 transition-colors"
+              className="text-xs tracking-wider uppercase font-medium text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100 transition-colors"
             >
               Sign In
             </button>
             <button
               onClick={onGetStarted}
-              className="rounded-lg bg-indigo-600 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 transition-colors whitespace-nowrap"
+              className="border border-stone-900 bg-stone-900 px-4 py-2 text-xs font-medium tracking-wider uppercase text-amber-50 shadow-xs hover:bg-stone-800 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white transition-colors"
             >
               Get Started
             </button>
@@ -82,249 +81,238 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-16 pb-20 md:pt-24 md:pb-32">
+      <section className="relative overflow-hidden pt-16 pb-20 md:pt-24 md:pb-28">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="text-center max-w-3xl mx-auto">
-            {/* Unboxed Metadata Kicker */}
-            <div className="inline-flex items-center gap-2 text-xs font-semibold text-indigo-600 dark:text-indigo-400 mb-4">
-              <span>Personal AI Career Mentor</span>
-              <span aria-hidden="true">·</span>
-              <span>Autonomous Roadmap Engine</span>
-              <span aria-hidden="true">·</span>
-              <span>Tailored for Engineering Students</span>
+          <div className="max-w-4xl mx-auto text-center">
+            {/* Archival metadata kicker */}
+            <div className="flex items-center justify-center gap-2 text-xs tracking-widest uppercase font-mono text-stone-500 mb-6">
+              <span>Autonomous Mentorship</span>
+              <span aria-hidden="true">/</span>
+              <span>Engineering Placement Syllabus</span>
+              <span aria-hidden="true">/</span>
+              <span>Spring 2026</span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 leading-[1.15]">
+            <h1 className="font-serif text-5xl md:text-7xl font-normal tracking-tight text-stone-950 dark:text-stone-50 leading-[1.08] text-balance">
               Turn your current skills into your{' '}
-              <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-500 bg-clip-text text-transparent">
+              <span className="italic font-serif font-normal text-amber-900 dark:text-amber-200 underline decoration-amber-400/40 decoration-1 underline-offset-8">
                 future career.
               </span>
             </h1>
 
-            <p className="mt-6 text-base md:text-lg text-slate-600 dark:text-slate-300 font-normal leading-relaxed">
-              Know your path. Build your skills. Become job-ready. CareerPilot continuously evaluates your diagnostic grasp, adapts your study roadmap, and guides you to placement success.
+            <p className="mt-8 text-base md:text-xl text-stone-600 dark:text-stone-300 font-serif leading-relaxed max-w-2xl mx-auto">
+              Know your path. Build your skills. Become job-ready. CareerPilot acts like your personal academic advisor and AI career mentor, transforming raw coursework into demonstrated software engineering mastery.
             </p>
 
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
               <button
                 onClick={onGetStarted}
-                className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 transition-all"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 border border-stone-900 bg-stone-900 px-7 py-3.5 text-xs font-semibold tracking-wider uppercase text-amber-50 hover:bg-stone-800 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white transition-all shadow-sm"
               >
-                <span>Get Started</span>
-                <ArrowRight className="h-4 w-4" />
+                <span>Initialize Candidate Twin</span>
+                <ArrowRight className="h-3.5 w-3.5" />
               </button>
 
               <button
                 onClick={onExplore}
-                className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-800 shadow-xs hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 transition-all"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 border border-stone-300 bg-transparent px-7 py-3.5 text-xs font-semibold tracking-wider uppercase text-stone-800 hover:bg-stone-100 dark:border-stone-800 dark:text-stone-200 dark:hover:bg-stone-900 transition-all"
               >
-                <span>Explore Career Paths</span>
+                <span>Inspect Career Tracks</span>
               </button>
             </div>
 
-            {/* Quick Proof Metrics */}
-            <div className="mt-12 flex items-center justify-center gap-8 text-xs text-slate-500 dark:text-slate-400">
+            {/* Editorial Benchmark Statistics */}
+            <div className="mt-14 pt-8 border-t border-stone-200 dark:border-stone-800 grid grid-cols-1 sm:grid-cols-3 gap-8 text-left max-w-3xl mx-auto">
               <div>
-                <span className="font-mono font-bold text-slate-900 dark:text-slate-100 text-sm">62% → 94%</span>
-                <div className="text-[11px]">Avg. Career Readiness Gain</div>
+                <div className="font-mono text-2xl font-bold text-stone-900 dark:text-stone-100">62% → 94%</div>
+                <div className="text-xs font-serif text-stone-600 dark:text-stone-400 mt-1">Average candidate readiness velocity across diagnostic milestones.</div>
               </div>
-              <div className="h-4 w-px bg-slate-200 dark:bg-slate-800" />
               <div>
-                <span className="font-mono font-bold text-slate-900 dark:text-slate-100 text-sm">8 Specialized</span>
-                <div className="text-[11px]">AI Career Agents</div>
+                <div className="font-mono text-2xl font-bold text-stone-900 dark:text-stone-100">8 Curators</div>
+                <div className="text-xs font-serif text-stone-600 dark:text-stone-400 mt-1">Autonomous multi-agent collective advising each applicant.</div>
               </div>
-              <div className="h-4 w-px bg-slate-200 dark:bg-slate-800" />
               <div>
-                <span className="font-mono font-bold text-slate-900 dark:text-slate-100 text-sm">Real-Time</span>
-                <div className="text-[11px]">Adaptive Roadmap</div>
+                <div className="font-mono text-2xl font-bold text-stone-900 dark:text-stone-100">Adaptive</div>
+                <div className="text-xs font-serif text-stone-600 dark:text-stone-400 mt-1">Continuous diagnostic intervention replacing static checklists.</div>
               </div>
             </div>
           </div>
 
-          {/* Interactive AI Career Dashboard Preview */}
-          <div className="mt-14 relative mx-auto max-w-5xl rounded-2xl border border-slate-200/80 bg-white p-2 shadow-2xl dark:border-slate-800 dark:bg-slate-900">
-            <div className="overflow-hidden rounded-xl border border-slate-100 dark:border-slate-800">
+          {/* Catalog Exhibition Frame */}
+          <div className="mt-16 relative mx-auto max-w-5xl border border-stone-300 bg-[#F5F2EB] p-3 shadow-xl dark:border-stone-800 dark:bg-stone-900">
+            <div className="overflow-hidden border border-stone-200 dark:border-stone-800">
               <img
                 src="/src/assets/images/careerpilot_hero_preview_1790640341197.jpg"
-                alt="CareerPilot AI Dashboard Preview"
+                alt="CareerPilot Telemetry Preview"
                 className="w-full h-auto object-cover max-h-[520px]"
                 referrerPolicy="no-referrer"
               />
             </div>
 
-            {/* Floating Glassmorphism Overlay Card */}
-            <div className="absolute -bottom-6 left-8 hidden sm:flex items-center gap-3 rounded-xl border border-slate-200 bg-white/95 p-3.5 shadow-lg backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/95">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                <CheckCircle2 className="h-5 w-5" />
-              </div>
-              <div className="text-left text-xs">
-                <div className="font-bold text-slate-900 dark:text-slate-100">
-                  Career Readiness: 62%
-                </div>
-                <div className="text-slate-500 dark:text-slate-400">
-                  Java OOP · SQL Indexing · Distributed Systems
-                </div>
-              </div>
-            </div>
-
-            <div className="absolute -top-4 right-8 hidden sm:flex items-center gap-2 rounded-xl border border-indigo-200 bg-indigo-50/95 px-3 py-2 text-xs font-semibold text-indigo-700 shadow-md backdrop-blur-md dark:border-indigo-900 dark:bg-indigo-950/95 dark:text-indigo-300">
-              <Sparkles className="h-3.5 w-3.5" />
-              <span>Personalized Career Twin Active</span>
+            {/* Editorial Margin Caption */}
+            <div className="mt-3 flex items-center justify-between text-[11px] font-mono text-stone-500 px-1">
+              <span>PLATE I. — CAREERPILOT AUTONOMOUS STATE MACHINE & TELEMETRY</span>
+              <span className="hidden sm:inline">ACCESSION NO. 2026.04.18</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* How CareerPilot Works */}
-      <section id="how-it-works" className="border-t border-slate-200/80 bg-white py-20 dark:border-slate-800 dark:bg-slate-900/50">
+      {/* 01. Systematic Methodology */}
+      <section id="methodology" className="border-t border-stone-200 bg-[#FAF8F5] py-20 dark:border-stone-800 dark:bg-[#0C0A09]">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="max-w-2xl">
-            <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-              01. Systematic Methodology
-            </span>
-            <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
-              How CareerPilot Works
-            </h2>
-            <p className="mt-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              Most students learn passively from random tutorials without knowing what hiring managers actually test. CareerPilot turns career preparation into an adaptive science.
+          <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-stone-200 pb-6 dark:border-stone-800">
+            <div>
+              <span className="font-mono text-xs uppercase tracking-widest text-amber-800 dark:text-amber-400">
+                Chapter 01
+              </span>
+              <h2 className="mt-1 font-serif text-3xl md:text-4xl font-normal text-stone-900 dark:text-stone-100">
+                Curatorial Methodology
+              </h2>
+            </div>
+            <p className="mt-3 md:mt-0 font-serif italic text-sm text-stone-500 max-w-md">
+              "Most students learn passively from fragmented tutorials. CareerPilot turns engineering preparation into an adaptive science."
             </p>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-5 dark:border-slate-800 dark:bg-slate-900/40">
-              <span className="font-mono text-xs font-bold text-indigo-600 dark:text-indigo-400">01</span>
-              <h3 className="mt-3 text-sm font-bold text-slate-900 dark:text-slate-100">
-                Calibrate Profile
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="border-t border-stone-300 pt-4 dark:border-stone-800">
+              <span className="font-mono text-xs text-stone-400">01 / CALIBRATION</span>
+              <h3 className="font-serif text-lg font-medium text-stone-900 dark:text-stone-100 mt-2">
+                Candidate Calibration
               </h3>
-              <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Input your college, branch, current skills, daily study hours, and target career destination.
+              <p className="font-serif text-xs text-stone-600 dark:text-stone-400 mt-2 leading-relaxed">
+                Log academic background, verified coursework, and daily study capacity to calibrate your baseline.
               </p>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-5 dark:border-slate-800 dark:bg-slate-900/40">
-              <span className="font-mono text-xs font-bold text-indigo-600 dark:text-indigo-400">02</span>
-              <h3 className="mt-3 text-sm font-bold text-slate-900 dark:text-slate-100">
-                Generate Career Twin
+            <div className="border-t border-stone-300 pt-4 dark:border-stone-800">
+              <span className="font-mono text-xs text-stone-400">02 / MODELING</span>
+              <h3 className="font-serif text-lg font-medium text-stone-900 dark:text-stone-100 mt-2">
+                The Career Twin
               </h3>
-              <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                CareerPilot maps your current capability curve against real employer hiring bars for your role.
+              <p className="font-serif text-xs text-stone-600 dark:text-stone-400 mt-2 leading-relaxed">
+                A digital model continuously cross-references your current grasp against actual industry hiring bars.
               </p>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-5 dark:border-slate-800 dark:bg-slate-900/40">
-              <span className="font-mono text-xs font-bold text-indigo-600 dark:text-indigo-400">03</span>
-              <h3 className="mt-3 text-sm font-bold text-slate-900 dark:text-slate-100">
-                Adaptive Roadmap
+            <div className="border-t border-stone-300 pt-4 dark:border-stone-800">
+              <span className="font-mono text-xs text-stone-400">03 / ADAPTATION</span>
+              <h3 className="font-serif text-lg font-medium text-stone-900 dark:text-stone-100 mt-2">
+                Adaptive Diagnostics
               </h3>
-              <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Follow daily missions. If diagnostic scores drop, CareerPilot automatically inserts targeted revision tasks.
+              <p className="font-serif text-xs text-stone-600 dark:text-stone-400 mt-2 leading-relaxed">
+                Milestones are tested, not assumed. Scoring under 70% automatically injects tailored revision and practice tasks.
               </p>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-5 dark:border-slate-800 dark:bg-slate-900/40">
-              <span className="font-mono text-xs font-bold text-indigo-600 dark:text-indigo-400">04</span>
-              <h3 className="mt-3 text-sm font-bold text-slate-900 dark:text-slate-100">
-                Placement Ready
+            <div className="border-t border-stone-300 pt-4 dark:border-stone-800">
+              <span className="font-mono text-xs text-stone-400">04 / DISPATCH</span>
+              <h3 className="font-serif text-lg font-medium text-stone-900 dark:text-stone-100 mt-2">
+                Placement Verification
               </h3>
-              <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Build verified production projects, pass ATS resume checks, and practice AI mock interviews.
+              <p className="font-serif text-xs text-stone-600 dark:text-stone-400 mt-2 leading-relaxed">
+                Build verified production capstones, audit resume claim consistency, and rehearse simulated STAR interviews.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* AI Career Twin & Skill Gap Section */}
-      <section id="career-twin" className="py-20">
+      {/* 02. The Career Twin & Skill Gap Analysis */}
+      <section id="career-twin" className="border-t border-stone-200 bg-[#F5F2EB] py-20 dark:border-stone-800 dark:bg-stone-950">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-                02. Intelligent Telemetry
+              <span className="font-mono text-xs uppercase tracking-widest text-amber-800 dark:text-amber-400">
+                Chapter 02
               </span>
-              <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
-                Your AI Career Twin
+              <h2 className="mt-1 font-serif text-3xl md:text-5xl font-normal text-stone-900 dark:text-stone-100 leading-tight">
+                The Digital Career Twin
               </h2>
-              <p className="mt-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                A dynamic, living representation of your software engineering readiness. Your Career Twin doesn't stay static—it recalculates every time you complete a mission, pass a quiz, or solve a coding challenge.
+              <p className="mt-4 font-serif text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
+                Rather than relying on generic syllabi, CareerPilot generates an exact mathematical twin of your professional capability. Every completed assessment, solved problem, and mock interview directly recalibrates your composite readiness score.
               </p>
 
-              <div className="mt-6 space-y-3">
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400">
-                    <CheckCircle2 className="h-3.5 w-3.5" />
-                  </div>
-                  <div className="text-xs">
-                    <strong className="text-slate-900 dark:text-slate-100">Precise Skill Gap Classification:</strong> Critical, Needs Improvement, Almost Ready, and Ready.
-                  </div>
+              <div className="mt-8 space-y-4 border-l-2 border-stone-300 pl-4 dark:border-stone-700">
+                <div>
+                  <h4 className="font-serif text-sm font-semibold text-stone-900 dark:text-stone-100">
+                    Rigorous Gap Classification
+                  </h4>
+                  <p className="font-serif text-xs text-stone-600 dark:text-stone-400 mt-0.5">
+                    Categorizes competencies into Critical, Needs Improvement, Almost Ready, and Ready.
+                  </p>
                 </div>
 
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400">
-                    <CheckCircle2 className="h-3.5 w-3.5" />
-                  </div>
-                  <div className="text-xs">
-                    <strong className="text-slate-900 dark:text-slate-100">"Why does this matter?" context:</strong> Learn how every concept connects directly to production architectures and interview screens.
-                  </div>
+                <div>
+                  <h4 className="font-serif text-sm font-semibold text-stone-900 dark:text-stone-100">
+                    "Why Does This Matter?" Monograph
+                  </h4>
+                  <p className="font-serif text-xs text-stone-600 dark:text-stone-400 mt-0.5">
+                    Every concept explicitly articulates its role in enterprise system design and interview filtering.
+                  </p>
                 </div>
 
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400">
-                    <CheckCircle2 className="h-3.5 w-3.5" />
-                  </div>
-                  <div className="text-xs">
-                    <strong className="text-slate-900 dark:text-slate-100">Knowledge Memory Engine:</strong> Automatically bookmarks tricky topics like HashMap collisions or SQL window functions for later revision.
-                  </div>
+                <div>
+                  <h4 className="font-serif text-sm font-semibold text-stone-900 dark:text-stone-100">
+                    Knowledge Memory Ledger
+                  </h4>
+                  <p className="font-serif text-xs text-stone-600 dark:text-stone-400 mt-0.5">
+                    Sub-topics where you struggle (e.g., hash collisions or SQL window functions) are cataloged for spaced review.
+                  </p>
                 </div>
               </div>
 
               <div className="mt-8">
                 <button
                   onClick={onExplore}
-                  className="flex items-center gap-2 rounded-lg bg-slate-900 px-5 py-2.5 text-xs font-semibold text-white hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white"
+                  className="inline-flex items-center gap-2 border border-stone-900 bg-stone-900 px-6 py-3 text-xs font-semibold tracking-wider uppercase text-amber-50 hover:bg-stone-800 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white transition-colors"
                 >
-                  <span>Explore Demo Career Twin</span>
+                  <span>Explore Candidate Archive</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </button>
               </div>
             </div>
 
-            {/* Visual Preview */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xl dark:border-slate-800 dark:bg-slate-900">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-4 dark:border-slate-800">
+            {/* Dossier Card */}
+            <div className="border border-stone-300 bg-[#FAF8F5] p-8 shadow-lg dark:border-stone-800 dark:bg-stone-900">
+              <div className="flex items-baseline justify-between border-b border-stone-200 pb-4 dark:border-stone-800">
                 <div>
-                  <div className="text-xs text-slate-500">Current Simulation</div>
-                  <div className="font-bold text-sm text-slate-900 dark:text-slate-100">
-                    Software Developer Career Twin
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-stone-400">Dossier</span>
+                  <div className="font-serif text-xl font-medium text-stone-900 dark:text-stone-100">
+                    Software Developer Assessment
                   </div>
                 </div>
-                <div className="flex items-center gap-1.5 rounded-md bg-indigo-500/10 px-2.5 py-1 text-indigo-600 dark:text-indigo-400 font-mono text-xs font-bold">
-                  62% Ready
+                <div className="text-right">
+                  <span className="font-mono text-2xl font-bold text-amber-900 dark:text-amber-300">62%</span>
+                  <span className="block font-mono text-[10px] uppercase text-stone-400">Readiness</span>
                 </div>
               </div>
 
-              {/* Skill Bars */}
-              <div className="mt-5 space-y-3.5">
+              {/* Editorial Line-Item Skills */}
+              <div className="mt-6 space-y-4">
                 {[
-                  { name: 'Java OOP', current: 45, target: 80, gap: '35% Gap · Critical' },
-                  { name: 'DSA & Algorithms', current: 30, target: 75, gap: '45% Gap · Critical' },
-                  { name: 'SQL & Relational DBs', current: 65, target: 70, gap: '5% Gap · Almost Ready' },
-                  { name: 'Production Projects', current: 50, target: 80, gap: '30% Gap · High' },
-                  { name: 'Technical Communication', current: 70, target: 75, gap: '5% Gap · Ready' },
-                  { name: 'Mock Interview Screening', current: 40, target: 80, gap: '40% Gap · Critical' },
+                  { name: 'Java Object-Oriented Architecture', current: 45, target: 80, delta: '-35%' },
+                  { name: 'Data Structures & Algorithmic Bounds', current: 30, target: 75, delta: '-45%' },
+                  { name: 'Relational Database Optimization & SQL', current: 65, target: 70, delta: '-5%' },
+                  { name: 'Distributed Systems & Capstones', current: 50, target: 80, delta: '-30%' },
+                  { name: 'Technical Articulation & STAR', current: 70, target: 75, delta: '-5%' },
                 ].map(item => (
-                  <div key={item.name} className="text-xs">
-                    <div className="flex justify-between font-medium">
-                      <span className="text-slate-800 dark:text-slate-200">{item.name}</span>
-                      <span className="text-slate-500 font-mono">{item.current}% / {item.target}%</span>
+                  <div key={item.name} className="border-b border-stone-200/60 pb-3 dark:border-stone-800/60 text-xs">
+                    <div className="flex justify-between items-baseline font-serif">
+                      <span className="text-stone-900 dark:text-stone-100 font-medium">{item.name}</span>
+                      <span className="font-mono text-stone-500">{item.current}% / {item.target}%</span>
                     </div>
-                    <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+                    <div className="mt-1.5 h-1 w-full bg-stone-200 dark:bg-stone-800 overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-indigo-600 dark:bg-indigo-500"
+                        className="h-full bg-stone-900 dark:bg-stone-100"
                         style={{ width: `${item.current}%` }}
                       />
                     </div>
-                    <div className="mt-0.5 text-[11px] text-slate-400">{item.gap}</div>
+                    <div className="mt-1 flex justify-between text-[11px] font-mono text-stone-400">
+                      <span>Status: Verified Diagnostic</span>
+                      <span className="text-amber-800 dark:text-amber-400 font-semibold">{item.delta} Gap</span>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -333,130 +321,112 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </section>
 
-      {/* Feature Grid */}
-      <section id="features" className="border-t border-slate-200/80 bg-white py-20 dark:border-slate-800 dark:bg-slate-900/50">
+      {/* 03. Complete Feature Suite */}
+      <section id="features" className="border-t border-stone-200 bg-[#FAF8F5] py-20 dark:border-stone-800 dark:bg-[#0C0A09]">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="text-center max-w-2xl mx-auto">
-            <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-              03. Complete Feature Suite
+          <div className="border-b border-stone-200 pb-6 dark:border-stone-800 max-w-2xl">
+            <span className="font-mono text-xs uppercase tracking-widest text-amber-800 dark:text-amber-400">
+              Chapter 03
             </span>
-            <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
-              Built for Engineering Students
+            <h2 className="mt-1 font-serif text-3xl md:text-4xl font-normal text-stone-900 dark:text-stone-100">
+              The Curated Suite
             </h2>
-            <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
-              Every tool in CareerPilot works together to ensure you stand out in competitive placement drives and hackathons.
+            <p className="mt-2 font-serif text-sm text-stone-500">
+              Engineered for academic rigor and career outcomes without pseudo-technical clutter.
             </p>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-6 dark:border-slate-800 dark:bg-slate-900/40">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400 mb-4">
-                <Compass className="h-5 w-5" />
-              </div>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="border-t border-stone-300 pt-5 dark:border-stone-800">
+              <span className="font-mono text-xs text-stone-400">MODULE 01</span>
+              <h3 className="font-serif text-lg font-medium text-stone-900 dark:text-stone-100 mt-2">
                 Career Simulator
               </h3>
-              <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Compare roles (Software Dev vs Data Analyst vs AI Engineer) and see how your skills and roadmap instantly reconfigure.
+              <p className="font-serif text-xs text-stone-600 dark:text-stone-400 mt-2 leading-relaxed">
+                Compare hiring bars between Backend, Full-Stack, Data, and AI engineering tracks with dynamic syllabus reweighting.
               </p>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-6 dark:border-slate-800 dark:bg-slate-900/40">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-purple-100 text-purple-600 dark:bg-purple-950 dark:text-purple-400 mb-4">
-                <FolderGit2 className="h-5 w-5" />
-              </div>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+            <div className="border-t border-stone-300 pt-5 dark:border-stone-800">
+              <span className="font-mono text-xs text-stone-400">MODULE 02</span>
+              <h3 className="font-serif text-lg font-medium text-stone-900 dark:text-stone-100 mt-2">
                 AI Project Builder
               </h3>
-              <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Generate production blueprints: database schema, step-by-step dev instructions, testing checklists, and impact resume bullets.
+              <p className="font-serif text-xs text-stone-600 dark:text-stone-400 mt-2 leading-relaxed">
+                Generate production blueprints with relational database schemas, step-by-step milestones, and Google XYZ resume bullets.
               </p>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-6 dark:border-slate-800 dark:bg-slate-900/40">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-rose-100 text-rose-600 dark:bg-rose-950 dark:text-rose-400 mb-4">
-                <FileText className="h-5 w-5" />
-              </div>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+            <div className="border-t border-stone-300 pt-5 dark:border-stone-800">
+              <span className="font-mono text-xs text-stone-400">MODULE 03</span>
+              <h3 className="font-serif text-lg font-medium text-stone-900 dark:text-stone-100 mt-2">
                 Resume-Skill Consistency Check
               </h3>
-              <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Avoid interview rejection by verifying that skills listed as "Advanced" in your resume match your actual assessment performance.
+              <p className="font-serif text-xs text-stone-600 dark:text-stone-400 mt-2 leading-relaxed">
+                Ensure claims made on paper (e.g. "Advanced Java") match your demonstrated assessment performance before technical screens.
               </p>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-6 dark:border-slate-800 dark:bg-slate-900/40">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-400 mb-4">
-                <Mic2 className="h-5 w-5" />
-              </div>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+            <div className="border-t border-stone-300 pt-5 dark:border-stone-800">
+              <span className="font-mono text-xs text-stone-400">MODULE 04</span>
+              <h3 className="font-serif text-lg font-medium text-stone-900 dark:text-stone-100 mt-2">
                 AI Mock Interview
               </h3>
-              <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Practice Technical, HR, and Behavioral rounds with instant feedback on relevance, technical accuracy, and STAR structure.
+              <p className="font-serif text-xs text-stone-600 dark:text-stone-400 mt-2 leading-relaxed">
+                Rehearse Technical, HR, and Behavioral rounds with instant evaluation on technical depth, STAR structure, and clarity.
               </p>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-6 dark:border-slate-800 dark:bg-slate-900/40">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-100 text-amber-600 dark:bg-amber-950 dark:text-amber-400 mb-4">
-                <Bot className="h-5 w-5" />
-              </div>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-                8 AI Career Agents
+            <div className="border-t border-stone-300 pt-5 dark:border-stone-800">
+              <span className="font-mono text-xs text-stone-400">MODULE 05</span>
+              <h3 className="font-serif text-lg font-medium text-stone-900 dark:text-stone-100 mt-2">
+                Multi-Agent Career Team
               </h3>
-              <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Specialized agents for Career Strategy, Learning Schedules, Code Explanations, Resumes, and Interview prep.
+              <p className="font-serif text-xs text-stone-600 dark:text-stone-400 mt-2 leading-relaxed">
+                Eight autonomous agents specialized in Learning Schedules, Assessment, Algorithms, Resumes, and Mock Interviews.
               </p>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-6 dark:border-slate-800 dark:bg-slate-900/40">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-100 text-teal-600 dark:bg-teal-950 dark:text-teal-400 mb-4">
-                <BarChart3 className="h-5 w-5" />
-              </div>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+            <div className="border-t border-stone-300 pt-5 dark:border-stone-800">
+              <span className="font-mono text-xs text-stone-400">MODULE 06</span>
+              <h3 className="font-serif text-lg font-medium text-stone-900 dark:text-stone-100 mt-2">
                 Focus Mode & Analytics
               </h3>
-              <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Time-blocked study sessions with built-in timers, weekly learning velocity tracking, and "this week vs last week" analytics.
+              <p className="font-serif text-xs text-stone-600 dark:text-stone-400 mt-2 leading-relaxed">
+                Time-blocked Pomodoro study sprints with stopwatch countdowns and weekly study hour histograms.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Footer */}
-      <footer className="border-t border-slate-200 bg-slate-900 text-white py-16 dark:border-slate-800">
+      {/* Editorial Colophon & Footer */}
+      <footer className="border-t border-stone-300 bg-[#F5F2EB] py-16 dark:border-stone-800 dark:bg-stone-950 text-stone-800 dark:text-stone-200">
         <div className="mx-auto max-w-7xl px-6 text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white">
-              <Sparkles className="h-4 w-4" />
-            </div>
-            <span className="text-lg font-bold">CareerPilot AI</span>
+          <div className="font-serif text-2xl font-normal italic tracking-tight text-stone-900 dark:text-stone-100 mb-2">
+            CareerPilot AI
           </div>
-          <h2 className="text-2xl md:text-3xl font-extrabold">
-            Ready to become job-ready?
-          </h2>
-          <p className="mt-2 text-xs md:text-sm text-slate-400 max-w-md mx-auto">
-            Take the initial career diagnostic, generate your digital twin, and embark on your personalized roadmap today.
+          <p className="font-serif text-xs text-stone-500 max-w-md mx-auto leading-relaxed">
+            "Know your path. Build your skills. Become job-ready." The autonomous career mentor for college students.
           </p>
 
-          <div className="mt-6 flex justify-center gap-3">
+          <div className="mt-8 flex justify-center gap-4">
             <button
               onClick={onGetStarted}
-              className="rounded-xl bg-indigo-600 px-6 py-2.5 text-xs font-semibold text-white shadow-md hover:bg-indigo-500 transition-colors"
+              className="border border-stone-900 bg-stone-900 px-6 py-2.5 text-xs font-semibold tracking-wider uppercase text-amber-50 hover:bg-stone-800 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white transition-colors"
             >
               Get Started Now
             </button>
             <button
               onClick={onExplore}
-              className="rounded-xl border border-slate-700 bg-slate-800 px-6 py-2.5 text-xs font-semibold text-slate-200 hover:bg-slate-700 transition-colors"
+              className="border border-stone-400 bg-transparent px-6 py-2.5 text-xs font-semibold tracking-wider uppercase text-stone-800 hover:bg-stone-200 dark:border-stone-700 dark:text-stone-200 dark:hover:bg-stone-900 transition-colors"
             >
-              Launch Demo Workspace
+              Enter Workspace
             </button>
           </div>
 
-          <div className="mt-12 text-xs text-slate-500">
-            © {new Date().getFullYear()} CareerPilot AI. Know your path. Build your skills. Become job-ready.
+          <div className="mt-12 font-mono text-[10px] uppercase tracking-widest text-stone-400">
+            © {new Date().getFullYear()} CareerPilot AI · Published & Distributed for Collegiate Placement Success
           </div>
         </div>
       </footer>

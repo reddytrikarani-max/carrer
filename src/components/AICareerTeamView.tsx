@@ -16,6 +16,7 @@ import {
   Send,
   X,
   Bot,
+  ArrowRight,
 } from 'lucide-react';
 
 interface AICareerTeamViewProps {
@@ -32,23 +33,23 @@ export const AICareerTeamView: React.FC<AICareerTeamViewProps> = ({ onNavigate }
   const getAgentIcon = (name: string) => {
     switch (name) {
       case 'Compass':
-        return <Compass className="h-5 w-5" />;
+        return <Compass className="h-4 w-4" />;
       case 'BookOpen':
-        return <BookOpen className="h-5 w-5" />;
+        return <BookOpen className="h-4 w-4" />;
       case 'CheckCircle2':
-        return <CheckCircle2 className="h-5 w-5" />;
+        return <CheckCircle2 className="h-4 w-4" />;
       case 'Code2':
-        return <Code2 className="h-5 w-5" />;
+        return <Code2 className="h-4 w-4" />;
       case 'FolderGit2':
-        return <FolderGit2 className="h-5 w-5" />;
+        return <FolderGit2 className="h-4 w-4" />;
       case 'FileText':
-        return <FileText className="h-5 w-5" />;
+        return <FileText className="h-4 w-4" />;
       case 'Mic2':
-        return <Mic2 className="h-5 w-5" />;
+        return <Mic2 className="h-4 w-4" />;
       case 'TrendingUp':
-        return <TrendingUp className="h-5 w-5" />;
+        return <TrendingUp className="h-4 w-4" />;
       default:
-        return <Bot className="h-5 w-5" />;
+        return <Bot className="h-4 w-4" />;
     }
   };
 
@@ -57,7 +58,7 @@ export const AICareerTeamView: React.FC<AICareerTeamViewProps> = ({ onNavigate }
     setConversation([
       {
         role: 'agent',
-        text: `Hello ${profile.name}! I am your ${agent.name}. I specialize in ${agent.role.toLowerCase()}. I have your current readiness (${careerTwin.careerReadiness}%) and target role (${profile.targetCareer}) loaded in my context. How can I help you today?`,
+        text: `Greetings, ${profile.name}. I am your ${agent.name}. I direct ${agent.role.toLowerCase()}. I have evaluated your candidate record (${careerTwin.careerReadiness}% readiness for ${profile.targetCareer}). How may I advise your preparation today?`,
       },
     ]);
     setQueryInput('');
@@ -97,7 +98,7 @@ export const AICareerTeamView: React.FC<AICareerTeamViewProps> = ({ onNavigate }
       const data = await res.json();
       setConversation(prev => [
         ...prev,
-        { role: 'agent', text: data?.reply || 'I processed your query with your career profile context.' },
+        { role: 'agent', text: data?.reply || 'I processed your inquiry with your full candidate profile context.' },
       ]);
     } catch (err) {
       console.error(err);
@@ -105,7 +106,7 @@ export const AICareerTeamView: React.FC<AICareerTeamViewProps> = ({ onNavigate }
         ...prev,
         {
           role: 'agent',
-          text: `Based on your profile for ${profile.targetCareer}, focusing on ${careerTwin.weakSkills[0] || 'core concepts'} will yield the highest return on investment this week.`,
+          text: `Regarding your track toward ${profile.targetCareer}: prioritize closing the gap in ${careerTwin.weakSkills[0] || 'core engineering fundamentals'} before scheduling placement screenings.`,
         },
       ]);
     } finally {
@@ -114,156 +115,156 @@ export const AICareerTeamView: React.FC<AICareerTeamViewProps> = ({ onNavigate }
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="space-y-8 text-stone-900 dark:text-stone-100">
+      {/* Editorial Header (Plate VII) */}
+      <div className="border border-stone-300/80 bg-[#FAF8F5] p-8 shadow-xs dark:border-stone-800 dark:bg-stone-900/60">
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-6 border-b border-stone-200 pb-6 dark:border-stone-800">
           <div className="max-w-2xl">
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-              <Users2 className="h-4 w-4" />
-              <span>Multi-Agent Career Advisory Collective</span>
+            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-amber-800 dark:text-amber-400">
+              <span>The Advisory Collective</span>
+              <span aria-hidden="true">/</span>
+              <span>Plate VII</span>
             </div>
-            <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+            <h1 className="mt-2 font-serif text-3xl md:text-5xl font-normal tracking-tight text-stone-900 dark:text-stone-100">
               Your AI Career Team
             </h1>
-            <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              Eight autonomous agents work in tandem to guide you from enrollment to job offer. Each agent monitors your real-time diagnostic performance, resume drafts, and mock interview velocity.
+            <p className="mt-2 font-serif text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
+              Eight specialized autonomous counselors continuously audit your diagnostic scores, monograph blueprints, and interview readiness for <strong>{profile.targetCareer}</strong>.
             </p>
           </div>
 
           <button
             onClick={() => onNavigate('chat')}
-            className="flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 text-xs font-semibold text-white shadow-xs hover:bg-indigo-500 transition-colors whitespace-nowrap"
+            className="flex items-center gap-2 border border-stone-900 bg-stone-900 px-5 py-2.5 font-mono text-xs uppercase tracking-wider text-amber-50 hover:bg-stone-800 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white transition-colors whitespace-nowrap"
           >
-            <Sparkles className="h-3.5 w-3.5" />
-            <span>Open Lead Mentor (CareerPilot)</span>
+            <Bot className="h-4 w-4" />
+            <span>Consult Lead Mentor</span>
           </button>
+        </div>
+
+        {/* Advisory Collective Info Strip */}
+        <div className="mt-4 flex flex-wrap items-center gap-6 text-xs font-serif text-stone-500">
+          <div>
+            <span className="text-stone-400 font-mono text-[10px] uppercase tracking-widest">Counselors In Session:</span>{' '}
+            <strong className="text-stone-800 dark:text-stone-200 font-mono">8 Specialized Agents</strong>
+          </div>
+          <span aria-hidden="true" className="text-stone-300 dark:text-stone-700">·</span>
+          <div>
+            <span className="text-stone-400 font-mono text-[10px] uppercase tracking-widest">Shared Memory Context:</span>{' '}
+            <strong className="text-stone-800 dark:text-stone-200">Candidate Dossier Active</strong>
+          </div>
         </div>
       </div>
 
-      {/* Agents Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {AI_AGENTS.map(agent => (
+      {/* Agents Grid (Museum / Catalog Format) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {AI_AGENTS.map((agent, idx) => (
           <div
             key={agent.id}
-            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900 flex flex-col justify-between hover:border-slate-300 dark:hover:border-slate-700 transition-all group"
+            className="border border-stone-300/80 bg-[#FAF8F5] p-6 shadow-xs dark:border-stone-800 dark:bg-stone-900/60 flex flex-col justify-between hover:border-stone-400 dark:hover:border-stone-700 transition-all font-serif group"
           >
             <div>
-              <div className="flex items-center justify-between">
-                <div
-                  className={`flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 ${agent.accentColor}`}
-                >
-                  {getAgentIcon(agent.iconName)}
-                </div>
-                <span className="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-600 dark:bg-slate-800 dark:text-slate-300 uppercase">
+              <div className="flex items-baseline justify-between border-b border-stone-200/80 pb-3 dark:border-stone-800/80">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-stone-400">
+                  {String(idx + 1).padStart(2, '0')}.
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-widest text-emerald-800 dark:text-emerald-400">
                   Active
                 </span>
               </div>
 
-              <h3 className="mt-3 text-sm font-bold text-slate-900 dark:text-slate-100">
-                {agent.name}
-              </h3>
-              <div className="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 mb-2">
-                {agent.role}
+              <div className="mt-4 flex items-center gap-2.5">
+                <div className="flex h-8 w-8 items-center justify-center border border-stone-300 bg-white text-stone-800 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-200">
+                  {getAgentIcon(agent.iconName)}
+                </div>
+                <div>
+                  <h3 className="text-base font-medium text-stone-900 dark:text-stone-100">
+                    {agent.name}
+                  </h3>
+                  <div className="font-mono text-[10px] uppercase tracking-wider text-amber-800 dark:text-amber-400">
+                    {agent.role}
+                  </div>
+                </div>
               </div>
 
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="mt-4 text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-serif">
                 {agent.description}
               </p>
             </div>
 
-            <div className="mt-5 border-t border-slate-100 pt-3 dark:border-slate-800">
+            <div className="mt-6 border-t border-stone-200 pt-4 dark:border-stone-800">
               <button
                 onClick={() => handleOpenAgent(agent)}
-                className="w-full flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800 transition-colors"
+                className="w-full flex items-center justify-center gap-2 border border-stone-300 bg-white py-2 font-mono text-xs uppercase tracking-wider text-stone-800 hover:border-stone-900 hover:bg-stone-100 dark:border-stone-700 dark:bg-stone-950 dark:text-stone-200 dark:hover:border-stone-400 transition-colors"
               >
                 <span>Consult Agent</span>
+                <ArrowRight className="h-3 w-3" />
               </button>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Dedicated Agent Consultation Modal */}
+      {/* Dedicated Agent Consultation Modal (Editorial Manuscript) */}
       {selectedAgent && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="flex flex-col h-[600px] w-full max-w-2xl rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900 overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs">
+          <div className="flex flex-col h-[620px] w-full max-w-2xl border border-stone-300 bg-[#FAF8F5] shadow-2xl dark:border-stone-700 dark:bg-stone-900 overflow-hidden font-serif">
             {/* Modal Header */}
-            <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 dark:border-slate-800">
+            <div className="flex items-center justify-between border-b border-stone-200 px-6 py-4 dark:border-stone-800">
               <div className="flex items-center gap-3">
-                <div
-                  className={`flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 ${selectedAgent.accentColor}`}
-                >
+                <div className="flex h-9 w-9 items-center justify-center border border-stone-300 bg-white text-stone-800 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-200">
                   {getAgentIcon(selectedAgent.iconName)}
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+                  <h3 className="font-serif text-base font-medium text-stone-900 dark:text-stone-100">
                     {selectedAgent.name}
                   </h3>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                    {selectedAgent.role}
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-amber-800 dark:text-amber-400">
+                    {selectedAgent.role} · Advisory Session
                   </p>
                 </div>
               </div>
 
               <button
                 onClick={() => setSelectedAgent(null)}
-                className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                className="p-1 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
             {/* Conversation Flow */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-4 text-xs">
+            <div className="flex-1 overflow-y-auto p-6 space-y-4 text-xs leading-relaxed">
               {conversation.map((msg, idx) => (
                 <div
                   key={idx}
                   className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[85%] rounded-2xl p-3.5 leading-relaxed whitespace-pre-wrap ${
+                    className={`max-w-[85%] p-4 ${
                       msg.role === 'user'
-                        ? 'bg-indigo-600 text-white'
-                        : 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200'
+                        ? 'border border-stone-300 bg-stone-200/60 text-stone-900 dark:border-stone-700 dark:bg-stone-800/80 dark:text-stone-100'
+                        : 'border-l-2 border-amber-900 bg-white text-stone-800 dark:border-amber-400 dark:bg-stone-950 dark:text-stone-200 shadow-2xs'
                     }`}
                   >
-                    {msg.text}
+                    <div className="font-mono text-[9px] uppercase tracking-widest text-stone-400 mb-1">
+                      {msg.role === 'user' ? profile.name : selectedAgent.name}
+                    </div>
+                    <div className="whitespace-pre-wrap font-serif text-xs">{msg.text}</div>
                   </div>
                 </div>
               ))}
-
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="flex items-center gap-2 rounded-2xl bg-slate-100 p-3 text-slate-500 dark:bg-slate-800">
-                    <div className="h-2 w-2 animate-bounce rounded-full bg-indigo-600" />
-                    <div className="h-2 w-2 animate-bounce rounded-full bg-indigo-600 [animation-delay:0.2s]" />
-                    <div className="h-2 w-2 animate-bounce rounded-full bg-indigo-600 [animation-delay:0.4s]" />
+                  <div className="border-l-2 border-amber-900 bg-white p-4 text-stone-500 dark:border-amber-400 dark:bg-stone-950 text-xs italic">
+                    {selectedAgent.name} is consulting your candidate records...
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Prompt Quick Chips */}
-            <div className="border-t border-slate-100 px-6 py-2.5 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
-              <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">
-                Suggested Inquiries:
-              </span>
-              <div className="flex flex-wrap gap-1.5">
-                {selectedAgent.samplePrompts.map((prompt, pIdx) => (
-                  <button
-                    key={pIdx}
-                    onClick={() => handleSendQuery(prompt)}
-                    className="rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-[11px] text-slate-700 hover:border-indigo-400 hover:text-indigo-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:text-indigo-400 transition-colors"
-                  >
-                    {prompt}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Input Bar */}
-            <div className="border-t border-slate-200 p-4 dark:border-slate-800 bg-white dark:bg-slate-900">
+            {/* Input Form */}
+            <div className="border-t border-stone-200 p-4 dark:border-stone-800">
               <form
                 onSubmit={e => {
                   e.preventDefault();
@@ -275,15 +276,16 @@ export const AICareerTeamView: React.FC<AICareerTeamViewProps> = ({ onNavigate }
                   type="text"
                   value={queryInput}
                   onChange={e => setQueryInput(e.target.value)}
-                  placeholder={`Ask ${selectedAgent.name} about ${selectedAgent.role.toLowerCase()}...`}
-                  className="flex-1 rounded-xl border border-slate-200 px-3.5 py-2 text-xs text-slate-900 focus:border-indigo-600 focus:outline-none dark:border-slate-800 dark:bg-slate-800 dark:text-slate-100"
+                  placeholder={`Inquire with ${selectedAgent.name}...`}
+                  className="flex-1 border border-stone-300 bg-white px-3.5 py-2 text-xs text-stone-900 focus:border-stone-900 focus:outline-none dark:border-stone-700 dark:bg-stone-950 dark:text-stone-100 font-sans"
                 />
                 <button
                   type="submit"
                   disabled={!queryInput.trim() || isLoading}
-                  className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-xs hover:bg-indigo-500 disabled:opacity-40"
+                  className="flex items-center gap-1.5 border border-stone-900 bg-stone-900 px-4 py-2 font-mono text-xs uppercase tracking-wider text-amber-50 hover:bg-stone-800 disabled:opacity-40 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white transition-colors"
                 >
-                  <Send className="h-4 w-4" />
+                  <Send className="h-3.5 w-3.5" />
+                  <span>Transmit</span>
                 </button>
               </form>
             </div>

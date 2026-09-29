@@ -9,6 +9,8 @@ import {
   Plus,
   Play,
   RotateCw,
+  Check,
+  X,
 } from 'lucide-react';
 
 interface TodaysMissionViewProps {
@@ -47,7 +49,7 @@ export const TodaysMissionView: React.FC<TodaysMissionViewProps> = ({ onNavigate
   const handleGenerateAdaptiveMission = () => {
     const weakSkill = careerTwin.weakSkills[0] || 'Data Structures';
     addMission({
-      title: `⚡ AI Intervention: Revisit ${weakSkill} & write unit tests`,
+      title: `Intervention: Revisit ${weakSkill} & write unit tests`,
       category: 'Diagnostic Revision',
       durationMinutes: 20,
       difficulty: 'Medium',
@@ -56,36 +58,37 @@ export const TodaysMissionView: React.FC<TodaysMissionViewProps> = ({ onNavigate
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="space-y-8 text-stone-900 dark:text-stone-100">
+      {/* Editorial Header (Plate VI) */}
+      <div className="border border-stone-300/80 bg-[#FAF8F5] p-8 shadow-xs dark:border-stone-800 dark:bg-stone-900/60">
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-6 border-b border-stone-200 pb-6 dark:border-stone-800">
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-              <CheckSquare className="h-4 w-4" />
+            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-amber-800 dark:text-amber-400">
               <span>Daily High-Leverage Execution</span>
+              <span aria-hidden="true">/</span>
+              <span>Plate VI</span>
             </div>
-            <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+            <h1 className="mt-2 font-serif text-3xl md:text-5xl font-normal tracking-tight text-stone-900 dark:text-stone-100">
               Today's Mission
             </h1>
-            <p className="mt-2 text-xs text-slate-600 dark:text-slate-400">
-              Tuned to your target study window of <strong>{profile.studyTime}</strong> for{' '}
+            <p className="mt-2 font-serif text-sm text-stone-600 dark:text-stone-400">
+              Calibrated to your daily study allocation of <strong>{profile.studyTime}</strong> for{' '}
               <strong>{profile.targetCareer}</strong>.
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <button
               onClick={handleGenerateAdaptiveMission}
-              className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors"
+              className="flex items-center gap-1.5 border border-stone-300 bg-white px-3.5 py-2 font-mono text-xs uppercase tracking-wider text-stone-700 hover:bg-stone-100 dark:border-stone-800 dark:bg-stone-950 dark:text-stone-300 dark:hover:bg-stone-800 transition-colors"
             >
-              <RotateCw className="h-3.5 w-3.5" />
+              <RotateCw className="h-3.5 w-3.5 text-stone-500" />
               <span>Generate AI Mission</span>
             </button>
 
             <button
               onClick={() => setShowAddModal(true)}
-              className="flex items-center gap-1.5 rounded-lg bg-indigo-600 px-4 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-indigo-500 transition-colors"
+              className="flex items-center gap-1.5 border border-stone-900 bg-stone-900 px-4 py-2 font-mono text-xs uppercase tracking-wider text-amber-50 hover:bg-stone-800 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white transition-colors"
             >
               <Plus className="h-3.5 w-3.5" />
               <span>Custom Goal</span>
@@ -93,88 +96,103 @@ export const TodaysMissionView: React.FC<TodaysMissionViewProps> = ({ onNavigate
           </div>
         </div>
 
-        {/* Overview Stats */}
-        <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 border-t border-slate-100 pt-4 dark:border-slate-800 text-xs">
+        {/* Overview Stats (Clean Editorial Ribbon) */}
+        <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-6 pt-2 text-xs">
           <div>
-            <span className="text-slate-400 text-[11px]">Tasks Finished</span>
-            <div className="font-mono font-bold text-slate-900 dark:text-slate-100 text-sm mt-0.5">
-              {completedCount} / {missions.length}
+            <div className="font-mono text-[10px] uppercase tracking-widest text-stone-400">
+              Tasks Completed
             </div>
+            <div className="font-mono text-xl font-bold text-stone-900 dark:text-stone-100 mt-1">
+              {completedCount} <span className="text-stone-400 font-normal">/ {missions.length}</span>
+            </div>
+            <div className="font-serif italic text-[11px] text-stone-500 mt-0.5">Daily quota tracking</div>
           </div>
 
           <div>
-            <span className="text-slate-400 text-[11px]">Daily XP Value</span>
-            <div className="font-mono font-bold text-indigo-600 dark:text-indigo-400 text-sm mt-0.5">
+            <div className="font-mono text-[10px] uppercase tracking-widest text-stone-400">
+              Daily XP Value
+            </div>
+            <div className="font-mono text-xl font-bold text-amber-900 dark:text-amber-300 mt-1">
               +{totalXpAvailable} XP
             </div>
+            <div className="font-serif italic text-[11px] text-stone-500 mt-0.5">Candidate tier growth</div>
           </div>
 
           <div>
-            <span className="text-slate-400 text-[11px]">Total Time Budget</span>
-            <div className="font-mono font-bold text-slate-900 dark:text-slate-100 text-sm mt-0.5">
+            <div className="font-mono text-[10px] uppercase tracking-widest text-stone-400">
+              Allocated Time Budget
+            </div>
+            <div className="font-mono text-xl font-bold text-stone-900 dark:text-stone-100 mt-1">
               {totalMinutes} mins
             </div>
+            <div className="font-serif italic text-[11px] text-stone-500 mt-0.5">Focused practice time</div>
           </div>
 
           <div>
-            <span className="text-slate-400 text-[11px]">Current Streak</span>
-            <div className="font-mono font-bold text-amber-600 text-sm mt-0.5 flex items-center gap-1">
-              <Flame className="h-4 w-4 fill-current" />
+            <div className="font-mono text-[10px] uppercase tracking-widest text-stone-400">
+              Active Streak
+            </div>
+            <div className="font-mono text-xl font-bold text-stone-900 dark:text-stone-100 mt-1 flex items-center gap-1.5">
+              <Flame className="h-4 w-4 fill-amber-700 text-amber-700" />
               <span>{profile.streakDays} Days</span>
             </div>
+            <div className="font-serif italic text-[11px] text-stone-500 mt-0.5">Continuous momentum</div>
           </div>
         </div>
       </div>
 
-      {/* Checklist Grid */}
-      <div className="space-y-3">
+      {/* Checklist (Clean Paper Folio Rows) */}
+      <div className="space-y-3 font-serif">
         {missions.map(mission => (
           <div
             key={mission.id}
             onClick={() => toggleMission(mission.id)}
-            className={`group flex items-center justify-between rounded-2xl border p-4 cursor-pointer transition-all ${
+            className={`group flex items-center justify-between border p-4.5 cursor-pointer transition-all ${
               mission.completed
-                ? 'border-emerald-200 bg-emerald-50/40 opacity-80 dark:border-emerald-950 dark:bg-emerald-950/20'
-                : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-xs dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700'
+                ? 'border-stone-200 bg-stone-100/50 opacity-70 dark:border-stone-800 dark:bg-stone-900/30'
+                : 'border-stone-300/80 bg-[#FAF8F5] hover:border-stone-400 dark:border-stone-800 dark:bg-stone-900/60 dark:hover:border-stone-700'
             }`}
           >
-            <div className="flex items-start sm:items-center gap-3.5">
-              <input
-                type="checkbox"
-                checked={mission.completed}
-                onChange={() => toggleMission(mission.id)}
-                className="mt-0.5 sm:mt-0 h-5 w-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
-              />
+            <div className="flex items-start sm:items-center gap-4">
+              <button
+                type="button"
+                onClick={e => {
+                  e.stopPropagation();
+                  toggleMission(mission.id);
+                }}
+                className={`mt-0.5 sm:mt-0 flex h-5 w-5 shrink-0 items-center justify-center border transition-colors ${
+                  mission.completed
+                    ? 'border-stone-900 bg-stone-900 text-amber-50 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900'
+                    : 'border-stone-300 bg-white hover:border-stone-900 dark:border-stone-700 dark:bg-stone-950'
+                }`}
+                aria-label="Toggle mission status"
+              >
+                {mission.completed && <Check className="h-3.5 w-3.5 stroke-[2.5]" />}
+              </button>
+
               <div>
                 <span
-                  className={`text-sm font-semibold block ${
+                  className={`text-sm font-medium block leading-snug ${
                     mission.completed
-                      ? 'line-through text-slate-400 dark:text-slate-500'
-                      : 'text-slate-900 dark:text-slate-100'
+                      ? 'line-through text-stone-400 dark:text-stone-500'
+                      : 'text-stone-900 dark:text-stone-100'
                   }`}
                 >
                   {mission.title}
                 </span>
 
-                <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-                  <span className="font-medium text-slate-700 dark:text-slate-300">
+                {/* Zero-Pill Unboxed Metadata */}
+                <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-stone-500 dark:text-stone-400">
+                  <span className="font-serif text-stone-800 dark:text-stone-200">
                     {mission.category}
                   </span>
-                  <span>·</span>
-                  <span className="flex items-center gap-1">
-                    <Clock className="h-3.5 w-3.5" />
-                    <span className="font-mono">{mission.durationMinutes} min</span>
+                  <span aria-hidden="true" className="text-stone-300 dark:text-stone-700">·</span>
+                  <span className="flex items-center gap-1 font-mono text-[11px] tabular-nums">
+                    <Clock className="h-3 w-3 text-stone-400" />
+                    <span>{mission.durationMinutes} min</span>
                   </span>
-                  <span>·</span>
-                  <span
-                    className={`rounded px-1.5 py-0.2 text-[10px] font-semibold ${
-                      mission.difficulty === 'Hard'
-                        ? 'bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-300'
-                        : mission.difficulty === 'Medium'
-                        ? 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300'
-                        : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300'
-                    }`}
-                  >
+                  <span aria-hidden="true" className="text-stone-300 dark:text-stone-700">·</span>
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-stone-600 dark:text-stone-300">
                     {mission.difficulty}
                   </span>
                 </div>
@@ -183,10 +201,10 @@ export const TodaysMissionView: React.FC<TodaysMissionViewProps> = ({ onNavigate
 
             <div className="flex items-center gap-3">
               <span
-                className={`font-mono text-xs font-bold tabular-nums rounded px-2.5 py-1 ${
+                className={`font-mono text-xs font-bold tabular-nums border px-2 py-0.5 ${
                   mission.completed
-                    ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300'
-                    : 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400'
+                    ? 'border-emerald-200 bg-emerald-50 text-emerald-950 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-300'
+                    : 'border-stone-300 bg-white text-stone-900 dark:border-stone-800 dark:bg-stone-950 dark:text-stone-100'
                 }`}
               >
                 +{mission.xp} XP
@@ -197,36 +215,47 @@ export const TodaysMissionView: React.FC<TodaysMissionViewProps> = ({ onNavigate
       </div>
 
       {/* Launch Focus Mode Action Banner */}
-      <div className="rounded-2xl border border-indigo-200 bg-indigo-50/60 p-5 dark:border-indigo-950 dark:bg-indigo-950/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="border border-stone-900 bg-stone-900 p-7 text-amber-50 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 flex flex-col sm:flex-row items-center justify-between gap-6">
         <div>
-          <h3 className="text-sm font-bold text-indigo-900 dark:text-indigo-200">
+          <div className="font-mono text-[10px] uppercase tracking-widest text-amber-400 dark:text-amber-800">
+            Pomodoro Time-Block Protocol
+          </div>
+          <h3 className="mt-1 font-serif text-xl font-normal">
             Ready to execute these tasks without distraction?
           </h3>
-          <p className="mt-1 text-xs text-indigo-700 dark:text-indigo-400">
-            Launch Focus Mode to automatically divide your available time into structured Pomodoro blocks with timer.
+          <p className="mt-1 font-serif text-xs italic text-stone-300 dark:text-stone-600">
+            Launch Focus Mode to automatically divide your available time into structured sprints with resting intervals.
           </p>
         </div>
 
         <button
           onClick={() => onNavigate('focus')}
-          className="flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 transition-colors whitespace-nowrap"
+          className="flex items-center gap-2 border border-stone-700 bg-stone-800 px-6 py-3 font-mono text-xs uppercase tracking-wider text-amber-50 hover:bg-stone-700 dark:border-stone-300 dark:bg-stone-200 dark:text-stone-900 dark:hover:bg-stone-300 transition-colors whitespace-nowrap"
         >
-          <Play className="h-4 w-4 fill-current" />
+          <Play className="h-3.5 w-3.5 fill-current" />
           <span>Launch Focus Session</span>
         </button>
       </div>
 
-      {/* Add Custom Mission Modal */}
+      {/* Add Custom Mission Modal (Editorial Sheet) */}
       {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-xl dark:border-slate-800 dark:bg-slate-900">
-            <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
-              Add Custom Daily Goal
-            </h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs">
+          <div className="w-full max-w-md border border-stone-300 bg-[#FAF8F5] p-7 shadow-xl dark:border-stone-700 dark:bg-stone-900">
+            <div className="flex items-center justify-between border-b border-stone-200 pb-3 dark:border-stone-800">
+              <h2 className="font-serif text-lg font-medium text-stone-900 dark:text-stone-100">
+                Add Custom Daily Goal
+              </h2>
+              <button
+                onClick={() => setShowAddModal(false)}
+                className="p-1 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
 
-            <form onSubmit={handleCreateMission} className="mt-4 space-y-3 text-xs">
+            <form onSubmit={handleCreateMission} className="mt-5 space-y-4 text-xs font-serif">
               <div>
-                <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block font-medium text-stone-700 dark:text-stone-300 mb-1">
                   Goal Title
                 </label>
                 <input
@@ -235,19 +264,19 @@ export const TodaysMissionView: React.FC<TodaysMissionViewProps> = ({ onNavigate
                   value={newTaskTitle}
                   onChange={e => setNewTaskTitle(e.target.value)}
                   placeholder="e.g. Read Java Concurrency in Practice Ch. 3"
-                  className="w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 focus:border-indigo-600 focus:outline-none dark:border-slate-800 dark:bg-slate-800 dark:text-slate-100"
+                  className="w-full border border-stone-300 bg-white px-3 py-2 text-xs text-stone-900 focus:border-stone-900 focus:outline-none dark:border-stone-700 dark:bg-stone-950 dark:text-stone-100 font-sans"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-medium text-stone-700 dark:text-stone-300 mb-1">
                     Category
                   </label>
                   <select
                     value={newTaskCategory}
                     onChange={e => setNewTaskCategory(e.target.value)}
-                    className="w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 focus:border-indigo-600 focus:outline-none dark:border-slate-800 dark:bg-slate-800 dark:text-slate-100"
+                    className="w-full border border-stone-300 bg-white px-3 py-2 text-xs text-stone-900 focus:border-stone-900 focus:outline-none dark:border-stone-700 dark:bg-stone-950 dark:text-stone-100 font-sans"
                   >
                     <option value="Core Coding">Core Coding</option>
                     <option value="DSA">DSA</option>
@@ -259,7 +288,7 @@ export const TodaysMissionView: React.FC<TodaysMissionViewProps> = ({ onNavigate
                 </div>
 
                 <div>
-                  <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-medium text-stone-700 dark:text-stone-300 mb-1">
                     Duration (Minutes)
                   </label>
                   <input
@@ -268,20 +297,20 @@ export const TodaysMissionView: React.FC<TodaysMissionViewProps> = ({ onNavigate
                     max="180"
                     value={newTaskMinutes}
                     onChange={e => setNewTaskMinutes(parseInt(e.target.value, 10) || 25)}
-                    className="w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 focus:border-indigo-600 focus:outline-none dark:border-slate-800 dark:bg-slate-800 dark:text-slate-100"
+                    className="w-full border border-stone-300 bg-white px-3 py-2 text-xs text-stone-900 focus:border-stone-900 focus:outline-none dark:border-stone-700 dark:bg-stone-950 dark:text-stone-100 font-mono"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-medium text-stone-700 dark:text-stone-300 mb-1">
                     Difficulty
                   </label>
                   <select
                     value={newTaskDifficulty}
                     onChange={e => setNewTaskDifficulty(e.target.value as any)}
-                    className="w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 focus:border-indigo-600 focus:outline-none dark:border-slate-800 dark:bg-slate-800 dark:text-slate-100"
+                    className="w-full border border-stone-300 bg-white px-3 py-2 text-xs text-stone-900 focus:border-stone-900 focus:outline-none dark:border-stone-700 dark:bg-stone-950 dark:text-stone-100 font-sans"
                   >
                     <option value="Easy">Easy</option>
                     <option value="Medium">Medium</option>
@@ -290,7 +319,7 @@ export const TodaysMissionView: React.FC<TodaysMissionViewProps> = ({ onNavigate
                 </div>
 
                 <div>
-                  <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-medium text-stone-700 dark:text-stone-300 mb-1">
                     XP Reward
                   </label>
                   <input
@@ -299,22 +328,22 @@ export const TodaysMissionView: React.FC<TodaysMissionViewProps> = ({ onNavigate
                     max="100"
                     value={newTaskXp}
                     onChange={e => setNewTaskXp(parseInt(e.target.value, 10) || 20)}
-                    className="w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 focus:border-indigo-600 focus:outline-none dark:border-slate-800 dark:bg-slate-800 dark:text-slate-100"
+                    className="w-full border border-stone-300 bg-white px-3 py-2 text-xs text-stone-900 focus:border-stone-900 focus:outline-none dark:border-stone-700 dark:bg-stone-950 dark:text-stone-100 font-mono"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2 pt-4 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex justify-end gap-3 pt-4 border-t border-stone-200 dark:border-stone-800">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="rounded-lg px-3 py-1.5 text-xs text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="px-3.5 py-1.5 font-mono text-xs uppercase tracking-wider text-stone-500 hover:text-stone-900 dark:hover:text-stone-100"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded-lg bg-indigo-600 px-4 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-indigo-500"
+                  className="border border-stone-900 bg-stone-900 px-4 py-1.5 font-mono text-xs uppercase tracking-wider text-amber-50 hover:bg-stone-800 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white"
                 >
                   Add to Mission
                 </button>
