@@ -1,0 +1,6 @@
+{
+  "name": "CareerPilot AI",
+  "description": "Know your path. Build your skills. Become job-ready. The AI career mentor for college students.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
