@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useCareerPilot } from '../context/CareerPilotContext';
-import { Bot, Send, Sparkles, Trash2, ArrowRight } from 'lucide-react';
+import { Bot, Send, Sparkles, Trash2, ArrowRight, Workflow, ExternalLink, Zap } from 'lucide-react';
 
 interface AIChatViewProps {
   onNavigate: (tab: string) => void;
@@ -16,11 +16,16 @@ const QUICK_PROMPTS = [
   'Analyze my progress.',
 ];
 
+const N8N_WEBHOOK_URL = 'https://trikarani.app.n8n.cloud/webhook/4049ce81-d13f-44b7-af5e-1d8123632f0d/chat';
+const N8N_WORKFLOW_URL = 'https://trikarani.app.n8n.cloud/workflow/Ew7nFj6ps20QqT5C';
+
 export const AIChatView: React.FC<AIChatViewProps> = ({ onNavigate }) => {
   const { profile, careerTwin, knowledgeMemory, chatMessages, addChatMessage, clearChat } =
     useCareerPilot();
   const [inputText, setInputText] = useState('');
   const [loading, setLoading] = useState(false);
+  const [activeEngine, setActiveEngine] = useState<'careerpilot' | 'n8n'>('n8n');
+  const [sessionId] = useState(() => 'sess-' + Math.random().toString(36).substring(2, 9));
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -39,38 +44,69 @@ export const AIChatView: React.FC<AIChatViewProps> = ({ onNavigate }) => {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/gemini/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: message.trim(),
-          agentType: 'careerpilot',
-          profileContext: {
-            name: profile.name,
-            degree: profile.degree,
-            branch: profile.branch,
-            year: profile.currentYear,
-            targetCareer: profile.targetCareer,
-            careerReadiness: careerTwin.careerReadiness,
-            studyTime: profile.studyTime,
-            skills: profile.skills,
-            weakSkills: careerTwin.weakSkills,
-            topicsToRevisit: knowledgeMemory.map(k => k.topic),
-          },
-        }),
-      });
+      if (activeEngine === 'n8n') {
+        // Forward to n8n Cloud Webhook Chatbot Proxy
+        const res = await fetch('/api/n8n/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: message.trim(),
+            sessionId,
+            profileContext: {
+              name: profile.name,
+              degree: profile.degree,
+              branch: profile.branch,
+              year: profile.currentYear,
+              targetCareer: profile.targetCareer,
+              careerReadiness: careerTwin.careerReadiness,
+              studyTime: profile.studyTime,
+              weakSkills: careerTwin.weakSkills,
+              topicsToRevisit: knowledgeMemory.map(k => k.topic),
+            },
+          }),
+        });
 
-      const data = await res.json();
-      addChatMessage({
-        sender: 'ai',
-        agentName: 'CareerPilot',
-        text: data?.reply || 'I analyzed your profile and progress to answer your question.',
-      });
+        const data = await res.json();
+        addChatMessage({
+          sender: 'ai',
+          agentName: 'n8n AI Agent',
+          text: data?.reply || 'Webhook response received successfully.',
+        });
+      } else {
+        // Forward to CareerPilot Lead Mentor AI
+        const res = await fetch('/api/gemini/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: message.trim(),
+            agentType: 'careerpilot',
+            profileContext: {
+              name: profile.name,
+              degree: profile.degree,
+              branch: profile.branch,
+              year: profile.currentYear,
+              targetCareer: profile.targetCareer,
+              careerReadiness: careerTwin.careerReadiness,
+              studyTime: profile.studyTime,
+              skills: profile.skills,
+              weakSkills: careerTwin.weakSkills,
+              topicsToRevisit: knowledgeMemory.map(k => k.topic),
+            },
+          }),
+        });
+
+        const data = await res.json();
+        addChatMessage({
+          sender: 'ai',
+          agentName: 'CareerPilot Mentor',
+          text: data?.reply || 'I analyzed your profile and progress to answer your question.',
+        });
+      }
     } catch (err) {
       console.error(err);
       addChatMessage({
         sender: 'ai',
-        agentName: 'CareerPilot',
+        agentName: activeEngine === 'n8n' ? 'n8n AI Agent' : 'CareerPilot Mentor',
         text: `Based on your profile as a ${profile.degree} student targeting ${profile.targetCareer}, focusing on ${careerTwin.weakSkills[0] || 'core concepts'} will yield the fastest readiness gains.`,
       });
     } finally {
@@ -81,34 +117,73 @@ export const AIChatView: React.FC<AIChatViewProps> = ({ onNavigate }) => {
   return (
     <div className="flex h-[calc(100vh-8.5rem)] flex-col border border-stone-300/80 bg-[#FAF8F5] shadow-xs dark:border-stone-800 dark:bg-stone-900/60 overflow-hidden font-serif">
       {/* Editorial Header */}
-      <div className="flex items-center justify-between border-b border-stone-200 px-6 py-4 dark:border-stone-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-stone-200 px-6 py-4 dark:border-stone-800">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center border border-stone-300 bg-white text-stone-900 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100">
-            <Bot className="h-4.5 w-4.5" />
+            {activeEngine === 'n8n' ? <Workflow className="h-4.5 w-4.5 text-amber-800 dark:text-amber-400" /> : <Bot className="h-4.5 w-4.5" />}
           </div>
 
           <div>
             <div className="flex items-center gap-2">
               <h2 className="font-serif text-base font-medium text-stone-900 dark:text-stone-100">
-                Lead Mentor AI · CareerPilot
+                {activeEngine === 'n8n' ? 'n8n Cloud AI Chatbot' : 'Lead Mentor AI · CareerPilot'}
               </h2>
               <span className="font-mono text-[10px] uppercase tracking-widest text-emerald-800 dark:text-emerald-400">
-                · Live Context Active
+                · {activeEngine === 'n8n' ? 'Webhook Live' : 'Live Context'}
               </span>
             </div>
             <p className="font-serif italic text-xs text-stone-500">
-              Personalized career counsel grounded in your {careerTwin.careerReadiness}% readiness for {profile.targetCareer}.
+              {activeEngine === 'n8n'
+                ? `Connected to n8n Cloud Webhook: 4049ce81-d13f-44b7-af5e-1d8123632f0d`
+                : `Personalized career counsel grounded in your ${careerTwin.careerReadiness}% readiness for ${profile.targetCareer}.`}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
+          {/* Engine Selector */}
+          <div className="flex items-center border border-stone-300 bg-white dark:border-stone-800 dark:bg-stone-950 p-0.5 text-xs font-mono">
+            <button
+              onClick={() => setActiveEngine('n8n')}
+              className={`px-2.5 py-1 transition-colors ${
+                activeEngine === 'n8n'
+                  ? 'bg-stone-900 text-amber-50 dark:bg-stone-100 dark:text-stone-900 font-bold'
+                  : 'text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100'
+              }`}
+            >
+              n8n Webhook
+            </button>
+            <button
+              onClick={() => setActiveEngine('careerpilot')}
+              className={`px-2.5 py-1 transition-colors ${
+                activeEngine === 'careerpilot'
+                  ? 'bg-stone-900 text-amber-50 dark:bg-stone-100 dark:text-stone-900 font-bold'
+                  : 'text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100'
+              }`}
+            >
+              CareerPilot
+            </button>
+          </div>
+
+          {activeEngine === 'n8n' && (
+            <a
+              href={N8N_WORKFLOW_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 border border-stone-300 bg-white px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-stone-600 hover:bg-stone-100 dark:border-stone-800 dark:bg-stone-950 dark:text-stone-400 dark:hover:bg-stone-800 transition-colors"
+              title="Open Workflow in n8n Cloud"
+            >
+              <span>Workflow</span>
+              <ExternalLink className="h-3 w-3" />
+            </a>
+          )}
+
           <button
             onClick={clearChat}
             className="flex items-center gap-1.5 border border-stone-300 bg-white px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-stone-600 hover:bg-stone-100 dark:border-stone-800 dark:bg-stone-950 dark:text-stone-400 dark:hover:bg-stone-800 transition-colors"
           >
             <Trash2 className="h-3 w-3" />
-            <span>Clear Dialogue</span>
+            <span>Clear</span>
           </button>
         </div>
       </div>
@@ -146,7 +221,7 @@ export const AIChatView: React.FC<AIChatViewProps> = ({ onNavigate }) => {
               }`}
             >
               <div className="flex items-center justify-between pb-2 mb-2 border-b border-stone-200/60 dark:border-stone-800/60 font-mono text-[9px] uppercase tracking-widest text-stone-400">
-                <span>{msg.sender === 'user' ? profile.name : 'Lead Mentor Dispatch'}</span>
+                <span>{msg.sender === 'user' ? profile.name : msg.agentName || (activeEngine === 'n8n' ? 'n8n Cloud Webhook' : 'Lead Mentor Dispatch')}</span>
                 <span>{new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
               </div>
 
@@ -160,7 +235,7 @@ export const AIChatView: React.FC<AIChatViewProps> = ({ onNavigate }) => {
         {loading && (
           <div className="flex justify-start">
             <div className="border-l-2 border-amber-900 bg-white p-4 dark:border-amber-400 dark:bg-stone-950 text-xs italic text-stone-500 font-serif">
-              Analyzing candidate dossier and synthesizing guidance...
+              {activeEngine === 'n8n' ? 'Calling n8n cloud webhook (4049ce81-d13f-44b7-af5e-1d8123632f0d)...' : 'Analyzing candidate dossier and synthesizing guidance...'}
             </div>
           </div>
         )}
@@ -180,7 +255,11 @@ export const AIChatView: React.FC<AIChatViewProps> = ({ onNavigate }) => {
             type="text"
             value={inputText}
             onChange={e => setInputText(e.target.value)}
-            placeholder="Ask CareerPilot regarding roadmap pacing, project choices, or technical blindspots..."
+            placeholder={
+              activeEngine === 'n8n'
+                ? "Ask n8n AI Agent via cloud webhook..."
+                : "Ask CareerPilot regarding roadmap pacing, project choices, or technical blindspots..."
+            }
             className="flex-1 border border-stone-300 bg-white px-4 py-2.5 text-xs text-stone-900 focus:border-stone-900 focus:outline-none dark:border-stone-700 dark:bg-stone-950 dark:text-stone-100 font-sans"
           />
           <button

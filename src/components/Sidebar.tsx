@@ -16,6 +16,7 @@ import {
   BarChart3,
   X,
   BookOpen,
+  Workflow,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -56,6 +57,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'interview', label: 'Mock Interview', icon: Mic2 },
     { id: 'focus', label: 'Focus Sprints', icon: Timer },
     { id: 'progress', label: 'Velocity Analytics', icon: BarChart3 },
+    { id: 'n8n', label: 'n8n Automations', icon: Workflow, badge: 'Cloud' },
   ];
 
   return (

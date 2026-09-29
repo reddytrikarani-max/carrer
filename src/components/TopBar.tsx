@@ -51,6 +51,8 @@ export const TopBar: React.FC<TopBarProps> = ({
         return 'Deep Work Session';
       case 'progress':
         return 'Telemetry & Velocity';
+      case 'n8n':
+        return 'n8n Cloud Automation';
       default:
         return 'Dashboard';
     }

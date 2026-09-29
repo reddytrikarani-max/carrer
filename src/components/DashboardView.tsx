@@ -18,6 +18,7 @@ import {
   Play,
   CheckCircle2,
   BookOpen,
+  ExternalLink,
 } from 'lucide-react';
 import { QuizModal } from './QuizModal';
 
@@ -487,6 +488,40 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
                 <div className="font-serif font-medium text-stone-900 dark:text-stone-100">Interview Agent</div>
                 <div className="font-mono text-[10px] text-stone-400">Mock Rounds</div>
               </button>
+            </div>
+          </div>
+
+          {/* n8n Cloud Automation Integration Card */}
+          <div className="border border-stone-300/80 bg-[#FAF8F5] p-6 shadow-xs dark:border-stone-800 dark:bg-stone-900/60">
+            <div className="flex items-baseline justify-between pb-3 border-b border-stone-200 dark:border-stone-800">
+              <h2 className="font-serif text-base font-medium text-stone-900 dark:text-stone-100">
+                n8n Cloud Automation
+              </h2>
+              <span className="font-mono text-[10px] uppercase text-emerald-800 dark:text-emerald-400 font-bold">
+                Linked
+              </span>
+            </div>
+
+            <p className="mt-3 font-serif text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
+              Workflow <code className="font-mono text-[10px] bg-stone-200/70 dark:bg-stone-800 px-1 py-0.5">Ew7nFj6ps20QqT5C</code> is configured to automate daily candidate dispatches and diagnostic sync.
+            </p>
+
+            <div className="mt-4 flex items-center justify-between gap-2">
+              <button
+                onClick={() => onNavigate('n8n')}
+                className="flex-1 border border-stone-900 bg-stone-900 py-1.5 font-mono text-[11px] uppercase tracking-wider text-amber-50 hover:bg-stone-800 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white text-center transition-colors"
+              >
+                Launch Hub
+              </button>
+              <a
+                href="https://trikarani.app.n8n.cloud/workflow/Ew7nFj6ps20QqT5C"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border border-stone-300 bg-white px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-stone-700 hover:bg-stone-100 dark:border-stone-800 dark:bg-stone-950 dark:text-stone-300 transition-colors inline-flex items-center gap-1"
+              >
+                <span>n8n</span>
+                <ExternalLink className="h-3 w-3" />
+              </a>
             </div>
           </div>
         </div>

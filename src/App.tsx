@@ -17,6 +17,8 @@ import { ResumeAnalyzerView } from './components/ResumeAnalyzerView';
 import { MockInterviewView } from './components/MockInterviewView';
 import { FocusModeView } from './components/FocusModeView';
 import { ProgressView } from './components/ProgressView';
+import { N8nAutomationView } from './components/N8nAutomationView';
+import { N8nChatbotWidget } from './components/N8nChatbotWidget';
 
 function AppContent() {
   const { profile } = useCareerPilot();
@@ -38,10 +40,13 @@ function AppContent() {
 
   if (viewMode === 'landing') {
     return (
-      <LandingPage
-        onGetStarted={handleGetStarted}
-        onExplore={handleExploreApp}
-      />
+      <>
+        <LandingPage
+          onGetStarted={handleGetStarted}
+          onExplore={handleExploreApp}
+        />
+        <N8nChatbotWidget />
+      </>
     );
   }
 
@@ -77,6 +82,7 @@ function AppContent() {
           {activeTab === 'interview' && <MockInterviewView />}
           {activeTab === 'focus' && <FocusModeView />}
           {activeTab === 'progress' && <ProgressView />}
+          {activeTab === 'n8n' && <N8nAutomationView onNavigate={setActiveTab} />}
         </main>
       </div>
 
@@ -85,6 +91,9 @@ function AppContent() {
         isOpen={showOnboarding}
         onClose={() => setShowOnboarding(false)}
       />
+
+      {/* Floating n8n Cloud Webhook Chatbot Widget */}
+      <N8nChatbotWidget />
     </div>
   );
 }

@@ -17,6 +17,7 @@ import {
   X,
   Bot,
   ArrowRight,
+  Workflow,
 } from 'lucide-react';
 
 interface AICareerTeamViewProps {
@@ -133,13 +134,23 @@ export const AICareerTeamView: React.FC<AICareerTeamViewProps> = ({ onNavigate }
             </p>
           </div>
 
-          <button
-            onClick={() => onNavigate('chat')}
-            className="flex items-center gap-2 border border-stone-900 bg-stone-900 px-5 py-2.5 font-mono text-xs uppercase tracking-wider text-amber-50 hover:bg-stone-800 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white transition-colors whitespace-nowrap"
-          >
-            <Bot className="h-4 w-4" />
-            <span>Consult Lead Mentor</span>
-          </button>
+          <div className="flex items-center gap-2.5">
+            <button
+              onClick={() => onNavigate('n8n')}
+              className="flex items-center gap-1.5 border border-stone-300 bg-white px-3.5 py-2.5 font-mono text-xs uppercase tracking-wider text-stone-700 hover:bg-stone-100 dark:border-stone-800 dark:bg-stone-950 dark:text-stone-300 dark:hover:bg-stone-800 transition-colors whitespace-nowrap"
+            >
+              <Workflow className="h-3.5 w-3.5 text-amber-800 dark:text-amber-400" />
+              <span>n8n Automations</span>
+            </button>
+
+            <button
+              onClick={() => onNavigate('chat')}
+              className="flex items-center gap-2 border border-stone-900 bg-stone-900 px-5 py-2.5 font-mono text-xs uppercase tracking-wider text-amber-50 hover:bg-stone-800 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white transition-colors whitespace-nowrap"
+            >
+              <Bot className="h-4 w-4" />
+              <span>Consult Lead Mentor</span>
+            </button>
+          </div>
         </div>
 
         {/* Advisory Collective Info Strip */}
